@@ -1,0 +1,38 @@
+base_cv = cv-pariksheet_nanda
+base_rs = research_statement-pariksheet_nanda
+
+rule latex
+  command = command emacsclient --eval '(progn (find-file "$tex") (TeX-command-sequence t t))'
+
+build $
+  $base_cv.aux $
+  $base_cv.bbl $
+  $base_cv.bcf $
+  $base_cv.blg $
+  $base_cv.log $
+  $base_cv.out $
+  $base_cv.pdf $
+  $base_cv.run.xml $
+  svg-inkscape/google-scholar_svg-tex.pdf $
+  svg-inkscape/google-scholar_svg-tex.pdf_tex $
+  svg-inkscape/orcid_svg-tex.pdf $
+  svg-inkscape/orcid_svg-tex.pdf_tex $
+  : latex $
+  $base_cv.tex $
+  publications.bib $
+  google-scholar.svg $
+  orcid.svg
+  tex = $base_cv.tex
+
+build $
+  $base_rs.aux $
+  $base_rs.bbl $
+  $base_rs.bcf $
+  $base_rs.blg $
+  $base_rs.log $
+  $base_rs.out $
+  $base_rs.pdf $
+  $base_rs.run.xml $
+  : latex $
+  $base_rs.tex
+  tex = $base_rs.tex
