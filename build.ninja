@@ -1,5 +1,7 @@
 base_cv = cv-pariksheet_nanda
 base_rs = research_statement-pariksheet_nanda
+base_cl = cover_letter-pariksheet_nanda
+logo_pitt = Shield_UnivPittsburgh_C.pdf
 
 rule latex
   command = command emacsclient --eval '(progn (find-file "$tex") (TeX-command-sequence t t))'
@@ -21,12 +23,18 @@ build $
 build $
   $base_rs.aux $
   $base_rs.bbl $
-  $base_rs.bcf $
   $base_rs.blg $
   $base_rs.log $
-  $base_rs.out $
   $base_rs.pdf $
-  $base_rs.run.xml $
   : latex $
   $base_rs.tex
   tex = $base_rs.tex
+
+build $
+  $base_cl.aux $
+  $base_cl.log $
+  $base_cl.pdf $
+  : latex $
+  $base_cl.tex $
+  $logo_pitt
+  tex = $base_cl.tex
