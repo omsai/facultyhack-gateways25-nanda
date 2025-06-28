@@ -13,15 +13,9 @@ build $
   $base_cv.out $
   $base_cv.pdf $
   $base_cv.run.xml $
-  svg-inkscape/google-scholar_svg-tex.pdf $
-  svg-inkscape/google-scholar_svg-tex.pdf_tex $
-  svg-inkscape/orcid_svg-tex.pdf $
-  svg-inkscape/orcid_svg-tex.pdf_tex $
   : latex $
   $base_cv.tex $
-  publications.bib $
-  google-scholar.svg $
-  orcid.svg
+  publications.bib
   tex = $base_cv.tex
 
 build $
