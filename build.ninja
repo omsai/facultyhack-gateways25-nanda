@@ -1,6 +1,7 @@
 base_cv = cv-pariksheet_nanda
 base_rs = research_statement-pariksheet_nanda
 base_cl = cover_letter-pariksheet_nanda
+base_sy = syllabus-pariksheet_nanda
 logo_pitt = Shield_UnivPittsburgh_C.pdf
 
 rule latex
@@ -8,9 +9,7 @@ rule latex
 
 build $
   $base_cv.aux $
-  $base_cv.bbl $
   $base_cv.bcf $
-  $base_cv.blg $
   $base_cv.log $
   $base_cv.out $
   $base_cv.pdf $
@@ -22,9 +21,7 @@ build $
 
 build $
   $base_rs.aux $
-  $base_rs.bbl $
   $base_rs.bcf $
-  $base_rs.blg $
   $base_rs.log $
   $base_rs.out $
   $base_rs.pdf $
@@ -42,3 +39,11 @@ build $
   $base_cl.tex $
   $logo_pitt
   tex = $base_cl.tex
+
+build $
+  $base_sy.aux $
+  $base_sy.log $
+  $base_sy.pdf $
+  : latex $
+  $base_sy.tex
+  tex = $base_sy.tex

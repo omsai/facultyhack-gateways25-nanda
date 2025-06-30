@@ -1,0 +1,107 @@
+\documentclass[12pt]{article}
+% Reduce excessive hyphenation https://stackoverflow.com/a/65156105
+\tolerance=9999
+\emergencystretch=10pt
+\hyphenpenalty=10000
+\exhyphenpenalty=100
+
+\usepackage[
+top=1cm,
+bottom=1cm,
+left=1cm,
+right=1cm,
+headsep=6pt,
+headheight=17pt, % as per the warning by fancyhdr
+includehead,
+heightrounded, % to avoid spurious underfull messages
+]{geometry}
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%
+  \fancyhf{}                      % Clear header and footer fields.
+  \fancyhead[l]{\today}
+  \fancyhead[c]{Syllabus: Massively parallel mechanistic modeling}
+  \fancyhead[r]{Page \thepage{} of~\pageref*{mylastpage}}}
+\pagestyle{plain}
+\usepackage{soul}
+\usepackage{hyperref}           % clickable links
+\hypersetup{colorlinks=true,citecolor=blue,linkcolor=blue,urlcolor=blue}
+\urlstyle{rm}
+\usepackage[
+abbreviate=true,
+bibencoding=utf8,
+minnames=2,
+maxbibnames=99,
+sorting=none,
+style=vancouver,
+citestyle=numeric-comp
+]{biblatex}
+% The vancouver citation style is based on NLM per
+% https://tex.stackexchange.com/a/371433
+\addbibresource{references.bib}
+\usepackage{upgreek}                % \upalpha
+% Highlight author.
+\renewcommand*{\mkbibnamegiven}[1]{%
+  \ifitemannotation{highlight}{\textbf{\color{red} #1}}{#1}}
+\renewcommand*{\mkbibnamefamily}[1]{%
+  \ifitemannotation{highlight}{\textbf{\color{red} #1}}{#1}}
+% Bibliography text size.
+\renewcommand*{\bibfont}{\footnotesize}
+
+\begin{document}
+
+% https://poorvucenter.yale.edu/teaching/teaching-resource-library/syllabus-design
+
+
+
+\begin{enumerate}
+\item Strategies for within-node vectorization, caching, memory bandwidth, and
+  I/O
+  \begin{itemize}
+  \item Exercises vectorizing Python code, inspecting C assembler CPU
+    vectorized instructions, creating roofline plots to inspect CPU-memory,
+    hwloc to inspect memory CPU hierarchy
+  \item Goal is appreciating the value of low-level computing
+  \end{itemize}
+\item Strategies for task distribution and multi-node cluster scaling
+  \begin{itemize}
+  \item Exercises with C, TaskWorks
+    (\url{https://github.com/hpc-io/taskworks}), Spack, MPI, and SLURM
+  \item Goal is reducing I/O overhead by batching and threading
+  \end{itemize}
+\item Introduction to data parallel programming for GPUs
+  \begin{itemize}
+  \item Exercise with C++ Kokkos
+  \end{itemize}
+\item Pseudo-likelihood based parallel parameter estimation
+  \begin{itemize}
+  \item Exercise with Python pyABC ABC-SMC
+  \end{itemize}
+\item Introduction to performance engineering
+  \begin{itemize}
+  \item Exercise with Darashan, Drishti
+    (\url{https://github.com/hpc-io/drishti-io}), and HPCtoolkit
+  \end{itemize}
+\item Stress-free peer code review and testing
+  \begin{itemize}
+  \item Exercise with professor and pairing
+  \end{itemize}
+\item Capstone project; potential topics for students without existing,
+  relevant research projects:
+  \begin{itemize}
+  \item Scaling up data science-centric workflows (with CharlieCloud)
+  \item On-demand complexity at scale (with Apptainer, Galaxy, and )
+  \item AI acceleration (with biologically-informed neural networks [BINNs])
+  \end{itemize}
+\end{enumerate}
+
+\label{mylastpage}              % chktex 24
+\newpage
+\appendix
+\setcounter{page}{1}
+\renewcommand{\thepage}{\arabic{page}}
+\fancyhead[c]{References}
+\fancyhead[r]{Appendix Page \thepage{} of~\pageref*{mylastappendixpage}}
+\printbibliography[heading=none]{}%
+\label{mylastappendixpage}
+
+\end{document}
