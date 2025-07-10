@@ -18,10 +18,13 @@ heightrounded, % to avoid spurious underfull messages
 \usepackage{fancyhdr}
 \fancypagestyle{plain}{%
   \fancyhf{}                      % Clear header and footer fields.
-  \fancyhead[l]{\today}
-  \fancyhead[c]{Syllabus: Massively parallel mechanistic modeling}
+  \fancyhead[l]{Fall 2025}
+  \fancyhead[c]{Syllabus: MSMI 3450: Massively parallel mechanistic modeling (3~credits)}
   \fancyhead[r]{Page \thepage{} of~\pageref*{mylastpage}}}
 \pagestyle{plain}
+\usepackage{graphicx}
+\usepackage{sectsty}            % sectionfont
+\sectionfont{\fontsize{12}{15}\selectfont}
 \usepackage{soul}
 \usepackage{hyperref}           % clickable links
 \hypersetup{colorlinks=true,citecolor=blue,linkcolor=blue,urlcolor=blue}
@@ -51,7 +54,26 @@ citestyle=numeric-comp
 
 % https://poorvucenter.yale.edu/teaching/teaching-resource-library/syllabus-design
 
+\begin{description}
+\item[Instructor] Pariksheet Nanda, PhD, BSc \quad %
+  \href{mailto:pan79@pitt.edu}{pan79@pitt.edu}
+\end{description}
 
+\noindent
+\includegraphics[width=\linewidth]{1920x1080-Aurora hero image.jpg}
+% https://www.anl.gov/sites/www/files/2024-05/1920x1080-Aurora hero image.jpg
+Image: The Aurora supercomputer at Argonne National Laboratory; %
+rank 3 in the top500 list of June 2025.
+
+\section{Course prerequisites}
+
+\section{Learning objectives}
+
+\section{Required resources}
+
+\section{Assessment}
+
+\section{Course schedule}
 
 \begin{enumerate}
 \item Strategies for within-node vectorization, caching, memory bandwidth, and
@@ -93,6 +115,55 @@ citestyle=numeric-comp
   \item AI acceleration (with biologically-informed neural networks [BINNs])
   \end{itemize}
 \end{enumerate}
+
+
+\section{Academic integrity}
+
+Students in this course %
+will be expected to comply with %
+the University of Pittsburgh's %
+Policy on Academic Integrity%
+\footnote{\url{https://www.provost.pitt.edu/info/ai1.html}}.
+%
+Any student suspected of violating this obligation %
+for any reason during the semester %
+will be required to participate in the procedural process, %
+initiated at the instructor level, %
+as outlined in the University Guidelines on Academic Integrity.
+%
+This may include, %
+but is not limited to, %
+the confiscation of the examination %
+of any individual suspected of violating University Policy.
+%
+Furthermore, %
+no student may bring any unauthorized materials to an exam, %
+including dictionaries and programmable calculators.
+
+To learn more about Academic Integrity, %
+visit the Academic Integrity Guide%
+\footnote{\url{http://pitt.libguides.com/academicintegrity/}} %
+for an overview of the topic.
+%
+For hands-on practice, %
+complete the Academic Integrity Modules%
+\footnote{\url{http://pitt.libguides.com/academicintegrity/plagiarism}}.
+
+\section{Disability services}
+
+If you have a disability %
+for which you are or may be requesting an accommodation, %
+you are encouraged to contact %
+both your instructor and Disability Resources and Services (DRS)%
+\footnote{\url{https://www.studentaffairs.pitt.edu/drs/}}, %
+140 William Pitt Union, %
+(412)~648-7890, %
+\href{mailto:drsrecep@pitt.edu}{drsrecep@pitt.edu}, %
+(412)~228-5347 for P3 ASL users, %
+as early as possible in the term.
+%
+DRS will verify your disability %
+and determine reasonable accommodations for this course.
 
 \label{mylastpage}              % chktex 24
 \newpage
