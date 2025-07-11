@@ -16,11 +16,12 @@ includehead,
 heightrounded, % to avoid spurious underfull messages
 ]{geometry}
 \usepackage{fancyhdr}
+\newcommand{\smallerfont}{\fontsize{11}{13}\selectfont}
 \fancypagestyle{plain}{%
   \fancyhf{}                      % Clear header and footer fields.
-  \fancyhead[l]{Fall 2025}
-  \fancyhead[c]{Syllabus: MSMI 3450: Massively parallel mechanistic modeling (3~credits)}
-  \fancyhead[r]{Page \thepage{} of~\pageref*{mylastpage}}}
+  \fancyhead[l]{\smallerfont{}Spring 2026}
+  \fancyhead[c]{\smallerfont{}Syllabus: MSMI 3450: GPUs for Massively Parallel Mechanistic Modeling (3~credits)}
+  \fancyhead[r]{\smallerfont{}Page \thepage{} of~\pageref*{mylastpage}}}
 \pagestyle{plain}
 \usepackage{graphicx}
 \usepackage{sectsty}            % sectionfont
