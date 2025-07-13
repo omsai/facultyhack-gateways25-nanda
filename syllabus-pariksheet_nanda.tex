@@ -15,6 +15,14 @@ headheight=17pt, % as per the warning by fancyhdr
 includehead,
 heightrounded, % to avoid spurious underfull messages
 ]{geometry}
+\usepackage{hyperref}           % clickable links
+\hypersetup{colorlinks=true,citecolor=blue,linkcolor=blue,urlcolor=blue}
+\urlstyle{rm}
+\usepackage[nameinlink]{cleveref}
+\newcounter{cls}
+\newcommand{\labelcls}[1]{\refstepcounter{cls}\thecls\label{#1}}
+\crefalias{cls}{assgn}
+\crefname{assgn}{assignment}{assignments}
 \usepackage{fancyhdr}
 \newcommand{\smallerfont}{\fontsize{11}{13}\selectfont}
 \fancypagestyle{plain}{%
@@ -27,9 +35,6 @@ heightrounded, % to avoid spurious underfull messages
 \usepackage{sectsty}            % sectionfont
 \sectionfont{\fontsize{12}{15}\selectfont}
 \usepackage{soul}
-\usepackage{hyperref}           % clickable links
-\hypersetup{colorlinks=true,citecolor=blue,linkcolor=blue,urlcolor=blue}
-\urlstyle{rm}
 \usepackage[
 abbreviate=true,
 bibencoding=utf8,
@@ -50,6 +55,23 @@ citestyle=numeric-comp
   \ifitemannotation{highlight}{\textbf{\color{red} #1}}{#1}}
 % Bibliography text size.
 \renewcommand*{\bibfont}{\footnotesize}
+\usepackage{tabularx}           % Table with X variable width wrapping column.
+\usepackage{supertabular}       % Table that breaks across pages.
+\usepackage{booktabs}           % {top,mid,bottom}rule
+\usepackage[table]{xcolor}      % \rowcolor
+\usepackage{datetime2}
+\DTMsavedate{class-begin}{2026-01-12}
+\DTMsavedate{class-drop}{2026-01-23}
+\DTMsavedate{break-begin}{2026-03-09}
+\DTMsavedate{break-end}{2026-03-13}
+\DTMsavedate{exam-conflict}{2026-03-16}
+\DTMsavedate{class-withdraw}{2026-03-20}
+\DTMsavedate{class-end}{2026-04-24}
+\DTMsavedate{exam-begin-grad}{2026-04-25}
+\DTMsavedate{exam-end-grad}{2026-05-02}
+\DTMsavedate{exam-begin-ug}{2026-04-26}
+\DTMsavedate{exam-end-ug}{2026-05-01}
+\DTMsavedate{grades-due}{2026-05-05}
 
 \begin{document}
 
@@ -140,36 +162,67 @@ rank 3 in the Top 500 List of June 2025.
 \section{Course prerequisites}
 
 \begin{itemize}
-\item Familiarity with at least one %
-  procedural computer programming language %
+\item \ul{Familiarity with at least one %
+  procedural computer programming language} %
   (such as C, C++, C\#, Fortran, Rust, Swift, %
   Python, R, Julia, GNU Octave, MATLAB, %
   Perl, Ruby, Java, Lisp, etc.)
 
-  The class will use C++, Python, and a small amount of Bash shell scripting.
-\item Basic statistical knowledge %
+  The class will use C, C++, Python, and %
+  a small amount of Bash shell scripting.
+
+  Don't worry about if you do not know any C, C++, or Python; %
+  part of your performance engineering training %
+  is to become a computer programming polyglot---%
+  even professionals use resources like Learn X in Y minutes %
+  to refresh themselves on how to do a computing task in a particular language.
+\item \ul{Basic statistical knowledge} %
   of mean, median, standard deviation, and L2-norm.
 
   The class uses these statistical concepts to construct %
   summary functions for matching computational models with datasets; %
   they are also used in performance profiling tools.
+
+  You will likely encounter more advanced statistics and mathematics %
+  for your capstone project %
+  and the instructor will do their best and work with your faculty mentor %
+  to suggest supplementary books, review papers, or other resources %
+  and adjust your class assignment commitments for you to pursue them.
+\item \ul{A tentative topic for your capstone project}; %
+  please suggest a tentative topic with a faculty mentor when %
+  contacting the instructor for a permission number to join the course.
+  %
+  Undergraduates and staff without research faculty mentors %
+  or existing, relevant research projects %
+  may either work with the instructor to select a faculty mentor %
+  and/or to choose a topic that interests you from the list below:
+  \begin{itemize}
+  \item Scaling up data science-centric workflows (with CharlieCloud)
+  \item On-demand complexity at scale (with Apptainer, Galaxy, or Maestro)
+  \item Mechanistic AI acceleration %
+    (with biologically-informed neural networks [BINNs])
+  \end{itemize}
+  Note that %
+  \ul{your topic is expected to change at least somewhat %
+  during the first 3~weeks of the course}, %
+  therefore your topic is not ``set in stone'' until \Cref{a-gpu}-capstone %
+  due at the $4^{\mathrm{th}}$ week of the course.
 \end{itemize}
 
 \noindent
-Please contact the instructor for a permission number to join the course.
-%
 No software installation is necessary before the course begins.
 
 \section{Required resources}
 
 \begin{itemize}
-\item Laptop computer to use in class running an operating system %
+\item \ul{Laptop computer to use in class} running an operating system %
   supported for scientific processing and visualization software %
   such as GNU/Linux, macOS, or Windows %
-  (namely, ChromeBooks, iPads, and smartphones would likely not be suitable).
+  (namely, ChromeBooks, tablets, and smartphones would likely not be suitable).
 
   Typically, %
-  GNU/Linux is best supported in scientific computing %
+  GNU/Linux is best supported %
+  in computationally-intensive scientific computing %
   and immersing yourself using that as your everyday operating system %
   will support a career in this field; %
   several commercial vendors sell GNU/Linux laptops\footnote{%
@@ -184,58 +237,319 @@ No software installation is necessary before the course begins.
   %
   For the purposes of this class, %
   a laptop GPU with compute capability\footnote{%
-  Intel Xe (in Intel Arc GPUs), AMD ROCm, and Nvidia CUDA} %
+  Intel Xe (in Intel Arc GPUs), AMD ROCm, and Nvidia CUDA.} %
   would allow you to develop and test code locally %
-  instead of testing on remote machines.
+  with more control than testing on remote machines.
 \end{itemize}
-
-\section{Learning objectives}
 
 \section{Assessment}
 
-\section{Course schedule}
+Theoretical portions of assignments will be graded using Canvas, %
+however the majority of this course %
+consists of practical code exercises %
+that will be submitted using the git version control system.
+%
+These exercises will be tested and graded using %
+a custom GitLab-CI runners and repositories %
+setup by the instructor, %
+necessary for the complex multi-node and multi-GPU environments.
+%
+There are no planned examinations %
+because the capstone project %
+sufficiently assesses coursework proficiency.
+
+\section{Learning objectives}
 
 \begin{enumerate}
-\item Strategies for within-node vectorization, caching, memory bandwidth, and
-  I/O
-  \begin{itemize}
-  \item Exercises vectorizing Python code, inspecting C assembler CPU
-    vectorized instructions, creating roofline plots to inspect CPU-memory,
-    hwloc to inspect memory CPU hierarchy
-  \item Goal is appreciating the value of low-level computing
-  \end{itemize}
-\item Strategies for task distribution and multi-node cluster scaling
-  \begin{itemize}
-  \item Exercises with C, TaskWorks
-    (\url{https://github.com/hpc-io/taskworks}), Spack, MPI, and SLURM
-  \item Goal is reducing I/O overhead by batching and threading
-  \end{itemize}
-\item Introduction to data parallel programming for GPUs
-  \begin{itemize}
-  \item Exercise with C++ Kokkos
-  \end{itemize}
-\item Pseudo-likelihood based parallel parameter estimation
-  \begin{itemize}
-  \item Exercise with Python pyABC ABC-SMC
-  \end{itemize}
-\item Introduction to performance engineering
-  \begin{itemize}
-  \item Exercise with Darashan, Drishti
-    (\url{https://github.com/hpc-io/drishti-io}), and HPCtoolkit
-  \end{itemize}
-\item Stress-free peer code review and testing
-  \begin{itemize}
-  \item Exercise with professor and pairing
-  \end{itemize}
-\item Capstone project; potential topics for students without existing,
-  relevant research projects:
-  \begin{itemize}
-  \item Scaling up data science-centric workflows (with CharlieCloud)
-  \item On-demand complexity at scale (with Apptainer, Galaxy, and )
-  \item AI acceleration (with biologically-informed neural networks [BINNs])
-  \end{itemize}
+\item Write \ul{per-node vectorized} CPU and GPU code.
+  %
+  Analyze per-node efficiency using assembly instructions, %
+  memory hierarchy, FLOP-memory bandwidth, and %
+  compare against algorithmic complexity.
+\item Architect \ul{multi-node distributed} software.
+  %
+  Analyze multi-node bottlenecks using SLURM statistics, %
+  Darshan, and HPCToolKit.
+\item Fit compute-intensive scientific software %
+  to \ul{heterogeneous datasets} %
+  using distributed, parallelizable samplers.
+\item Develop scientific code specific %
+  \ul{unit tests and performance regression tests} %
+  for sustainable software.
+  %
+  Describe and document scientific codes at appropriate levels.
+\item Communicate with peers to give \ul{constructive code criticism} %
+  using issue trackers, git merge/pull requests, and review comments.
+\item Apply the above skills in developing a \ul{capstone portfolio project}.
+  %
+  Write an NSF ACCESS style report %
+  using a scaling study to justify a request for computational resources.
+  %
+  Oral presentations of capstone progress and final outcome.
 \end{enumerate}
 
+\noindent
+Corresponding \ul{learning goals %
+are listed at the end of each class} %
+in the table in \Cref{sec:course-schedule} Course schedule.
+
+\section{Course schedule}%
+\label{sec:course-schedule}
+
+\noindent
+Classes are on Wednesdays at 13:00--14:50.\\[.5\baselineskip]
+\newcommand{\myheader}{%
+  Date & Topic, assignment, goal & Assignment(s) due on this date}
+\tablefirsthead{
+  \toprule
+  \myheader \\
+  \midrule}
+\tablehead{
+  \multicolumn{3}{c}{Table continued from previous page} \\
+  \toprule
+  \myheader \\
+  \midrule}
+\tabletail{
+  \midrule
+  \multicolumn{3}{c}{Table continued on next page} \\}
+\tablelasttail{\bottomrule}
+% Table row spacing
+\renewcommand{\arraystretch}{2}
+% Use primitive for text width, because widthof does not work inside the table
+% header:  https://tex.stackexchange.com/a/18577
+\newdimen\widthdate
+\setbox0=\hbox{4444-44-44}
+\widthdate=\wd0
+\noindent
+\begin{mpsupertabular}{%
+    % Dimensions from https://tex.stackexchange.com/a/62718
+  p{\dimexpr \widthdate} | %
+  p{\dimexpr .7\linewidth-3\tabcolsep-.5\widthdate} | %
+  p{\dimexpr .3\linewidth-3\tabcolsep-.5\widthdate}}
+  \DTMdate{2026-01-14}
+  & \textbf{Topic~\labelcls{a-node}: Strategies for %
+    within-node vectorization, %
+    caching, %
+    memory bandwidth, and %
+    I/O}.
+
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-node}: %
+    Exercises vectorizing Python code, %
+    inspecting C assembler CPU vectorized instructions, %
+    creating roofline plots to inspect CPU-memory, %
+    hwloc to inspect memory CPU hierarchy.
+
+    \vspace{.5\baselineskip}
+    Goal \labelcref{a-node}: %
+    Learn how to check and write code for efficient low-level execution.
+  & ---\\
+  \DTMdate{2026-01-21}
+  & \textbf{Topic~\labelcls{a-clust}: %
+    Strategies for task distribution and multi-node cluster scaling}.
+
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-clust}: %
+    Exercises with C, TaskWorks\footnote{%
+    \url{https://github.com/hpc-io/taskworks}}, %
+    Spack, MPI, and SLURM.\@
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-clust}: Accommodate blocking operations (e.g. I/O) %
+    using batching and threading.
+  & \Cref{a-node}\\
+  \rowcolor{gray!20}
+  \DTMusedate{class-drop}
+  & \multicolumn{2}{l}{Deadline for undergraduates and staff %
+    to submit their faculty letter of support.} \\
+  \rowcolor{gray!20}
+  & \multicolumn{2}{l}{Deadline to drop classes.} \\
+  \DTMdate{2026-01-28}
+  & \textbf{Topic~\labelcls{a-gpu}: %
+    Introduction to data parallel programming for GPUs}.
+
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-gpu}: %
+    Exercises with C++ SYCL and Kokkos %
+    to fill in the blanks of partially completed programs.
+
+    Assignment~\labelcref{a-gpu}-capstone: %
+    Outline an informal bullet list of goals and objectives %
+    to create a minimum viable product of your scientific code %
+    through the remainder of the semester.
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-gpu}: Implement algorithms %
+    using heterogeneous computing frameworks.
+
+    Goal 3-capstone: %
+    You now have sufficient background %
+    to begin planning your capstone assignment.
+  & \Cref{a-clust}\\
+  \DTMdate{2026-02-04}
+  & \textbf{Topic~\labelcls{a-fit}: Gradient based and %
+    pseudo-likelihood based %
+    parallel parameter fitting}.
+
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-fit}: Exercises with %
+    distributed gradient-based parameter fitting, and %
+    pyABC ABC-SMC.\@
+
+    Assignment~\labelcref{a-fit}-capstone: %
+    Import your datasets and %
+    choose a gradient-based or gradient-free method %
+    to sample parameters your solver %
+    that best match your datasets.
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-fit}: Apply statistical summaries %
+    to match solver outputs with datasets %
+    using gradient-based and gradient-free sampling techniques.
+
+    Goal~\labelcref{a-fit}-capstone: %
+    Apply your domain knowledge %
+    to appropriately match your datasets to your solver outputs.
+  & \Cref{a-gpu},
+
+    \Cref{a-gpu}-capstone\\
+  \DTMdate{2026-02-11}
+  & \textbf{Topic~\labelcls{a-tune}: %
+    Introduction to distributed performance tuning}.
+
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-tune}: Exercises with Darashan, Drishti\footnote{%
+    \url{https://github.com/hpc-io/drishti-io}}, and %
+    HPCtoolkit
+
+    Assignment~\labelcref{a-tune}-capstone: %
+    Literature review of software similar to yours %
+    and how you intend to make yours different.
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-tune}: Synthesize previous concepts from Topics 1--3 %
+    to critically assess and improve program performance.
+
+    Goal~\labelcref{a-tune}-capstone: %
+    You will revisit distributed performance tuning as needed %
+    during the remainder of the semester; %
+    instead focus your efforts into why makes your project unique %
+    by reviewing prior art.
+  & \Cref{a-fit},
+
+  \Cref{a-fit}-capstone\\
+  \DTMdate{2026-02-18}
+  & \textbf{Topic~\labelcls{a-test}: %
+    Automated unit testing, performance regression testing, and test coverage}.
+
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-test}: Exercise with professor and pairing
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-test}:
+  & \Cref{a-tune}
+
+  \Cref{a-tune}-capstone\\
+  \DTMdate{2026-02-25}
+  & \textbf{Topic~\labelcls{a-rev}: %
+    Practicing stress-free peer review of code and %
+    writing various types of documentation}.
+
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-rev}: Exercise with professor and pairing
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-rev}: [\ldots]
+  & \Cref{a-test}
+
+  \Cref{a-test}-capstone\\
+  \DTMdate{2026-03-04}
+  & \textbf{Topic~\labelcls{a-next}: [\ldots]}.
+
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-next}: [\ldots]
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-next}: [\ldots]
+  & \Cref{a-rev}
+
+  \Cref{a-rev}-capstone\\
+  \rowcolor{gray!20}
+  \multicolumn{3}{c}{Enjoy your spring break! %
+  No assignments and no classes %
+  \DTMusedate{break-begin} through %
+  \DTMusedate{break-end}.}\\
+  \DTMdate{2026-03-18}
+  & \textbf{Topic~\labelcls{a-next2}: [\ldots]}.
+
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-next2}: [\ldots]
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-next2}: [\ldots]
+  & ---\\
+  \DTMdate{2026-03-25}
+  & \textbf{Topic~\labelcls{a-next2}: [\ldots]}.
+
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-next2}: [\ldots]
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-next2}: [\ldots]
+  & \Cref{a-next}
+
+  \Cref{a-next}-capstone\\
+  \DTMdate{2026-04-01}
+  & \textbf{Topic~\labelcls{a-next2}: [\ldots]}.
+
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-next2}: [\ldots]
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-next2}: [\ldots]
+  & \Cref{a-next}
+
+  \Cref{a-next}-capstone\\
+  \DTMdate{2026-04-08}
+  & \textbf{Topic~\labelcls{a-next2}: [\ldots]}.
+
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-next2}: [\ldots]
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-next2}: [\ldots]
+  & \Cref{a-next}
+
+  \Cref{a-next}-capstone\\
+  \DTMdate{2026-04-15}
+  & \textbf{Topic~\labelcls{a-next2}: [\ldots]}.
+
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-next2}: [\ldots]
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-next2}: [\ldots]
+  & \Cref{a-next}
+
+  \Cref{a-next}-capstone\\
+  \DTMdate{2026-04-22}
+  & \textbf{Topic~\labelcls{a-next2}: [\ldots]}.
+
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-next2}: [\ldots]
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-next2}: [\ldots]
+  & \Cref{a-next}
+
+  \Cref{a-next}-capstone\\
+  \DTMusedate{exam-end-ug}
+  & \textbf{Deadline to turn in capstone project.}
+  & Capstone project \\
+  \rowcolor{gray!20}
+  \DTMusedate{grades-due}
+  & \multicolumn{2}{l}{Grades due.} \\
+\end{mpsupertabular}
 
 \section{Academic integrity}
 
@@ -256,9 +570,10 @@ but is not limited to, %
 the confiscation of the examination %
 of any individual suspected of violating University Policy.
 %
-Furthermore, %
+\st{Furthermore, %
 no student may bring any unauthorized materials to an exam, %
-including dictionaries and programmable calculators.
+including dictionaries and programmable calculators.}\footnote{%
+This facet of the university policy does not apply to this class.}
 
 To learn more about Academic Integrity, %
 visit the Academic Integrity Guide%
