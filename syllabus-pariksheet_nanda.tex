@@ -73,10 +73,13 @@ citestyle=numeric-comp
 \DTMsavedate{exam-begin-ug}{2026-04-26}
 \DTMsavedate{exam-end-ug}{2026-05-01}
 \DTMsavedate{grades-due}{2026-05-05}
+\usepackage{clipboard}
 
 \begin{document}
 
 % https://poorvucenter.yale.edu/teaching/teaching-resource-library/syllabus-design
+
+% https://hpcic.llnl.gov/tutorials/2025-hpc-tutorials
 
 \begin{description}
 \item[Instructor] Pariksheet Nanda, PhD \quad %
@@ -104,7 +107,7 @@ national security, %
 data analytics, and %
 optimization.
 %
-A 7~year, \$1.8~billion effort %
+An 8~year, \$1.8~billion effort %
 called the Exascale Computing Project %
 involving 2,800 scientists and engineers %
 recently finished modernizing %
@@ -336,8 +339,8 @@ Broadly speaking, the schedule is divided into two halves:
 \begin{mpsupertabular}{%
     % Dimensions from https://tex.stackexchange.com/a/62718
   p{\dimexpr \widthdate} | %
-  p{\dimexpr .7\linewidth-3\tabcolsep-.5\widthdate} | %
-  p{\dimexpr .3\linewidth-3\tabcolsep-.5\widthdate}}
+  p{\dimexpr .695\linewidth-3\tabcolsep-.5\widthdate} | %
+  p{\dimexpr .305\linewidth-3\tabcolsep-.5\widthdate}}
   \DTMdate{2026-01-14}
   & \textbf{Topic~\labelcls{a-node}: Strategies for %
     within-node vectorization, %
@@ -459,8 +462,8 @@ Broadly speaking, the schedule is divided into two halves:
     Assignment~\labelcref{a-test}: Exercise with professor and pairing
 
     \vspace{.5\baselineskip}
-    Goal~\labelcref{a-test}:
-  & \Cref{a-tune}
+    Goal~\labelcref{a-test}: [\ldots]
+  & \Cref{a-tune},
 
   \Cref{a-tune}-capstone\\
   \DTMdate{2026-02-25}
@@ -473,19 +476,13 @@ Broadly speaking, the schedule is divided into two halves:
 
     \vspace{.5\baselineskip}
     Goal~\labelcref{a-rev}: [\ldots]
-  & \Cref{a-test}
+  & \Cref{a-test},
 
   \Cref{a-test}-capstone\\
   \DTMdate{2026-03-04}
   & \textbf{Topic~\labelcls{a-next}: Continuous integration systems, %
     git hooks, etc.\@ for testing and documentation}.
-
-    \vspace{.5\baselineskip}
-    Assignment~\labelcref{a-next}: [\ldots]
-
-    \vspace{.5\baselineskip}
-    Goal~\labelcref{a-next}: [\ldots]
-  & \Cref{a-rev}
+  & \Cref{a-rev},
 
   \Cref{a-rev}-capstone\\
   \rowcolor{gray!20}
@@ -494,72 +491,130 @@ Broadly speaking, the schedule is divided into two halves:
   \DTMusedate{break-begin} through %
   \DTMusedate{break-end}.}\\
   \DTMdate{2026-03-18}
-  & \textbf{Topic~\labelcls{a-next2}: [\ldots]}.
+  & \textbf{Topic~\labelcls{a-ckpt-dbg}: Checkpointing and parallel debugging}.
 
     \vspace{.5\baselineskip}
-    Assignment~\labelcref{a-next2}: [\ldots]
+    Assignment~\labelcref{a-ckpt-dbg}: [\ldots]
 
     \vspace{.5\baselineskip}
-    Goal~\labelcref{a-next2}: [\ldots]
+    Goal~\labelcref{a-ckpt-dbg}: [\ldots]
   & ---\\
   \DTMdate{2026-03-25}
-  & \textbf{Topic~\labelcls{a-next2}: [\ldots]}.
+  & \textbf{Topic~\labelcls{a-beyond-hpc}: Coupling HPC paradigms %
+    with data science, AI, and cloud environments}.
 
     \vspace{.5\baselineskip}
-    Assignment~\labelcref{a-next2}: [\ldots]
+    Assignment~\labelcref{a-beyond-hpc}:
+    Summarize the key concepts of chapters 4 and 8 of ISBN 978-3-031-78698-3; %
+    in no more than a single page.
 
     \vspace{.5\baselineskip}
-    Goal~\labelcref{a-next2}: [\ldots]
-  & \Cref{a-next}
+    Goal~\labelcref{a-beyond-hpc}: [\ldots]
 
-  \Cref{a-next}-capstone\\
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-beyond-hpc}-capstone: %
+    Assess possible extensions to your capstone project %
+    using components of AI, big data, or cloud applications %
+    and specialized hardware needs %
+    by connecting the concepts from each of the two articles, %
+    your domain science, and %
+    to what extent we discussed these concepts so far in the class.
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-beyond-hpc}-capstone: [\ldots]
+  & \Cref{a-ckpt-dbg},
+
+  \Cref{a-ckpt-dbg}-capstone\\
   \DTMdate{2026-04-01}
-  & \textbf{Topic~\labelcls{a-next2}: [\ldots]}.
+  & \textbf{Topic~\labelcls{a-self-host}: Collaboratively launch %
+    your own HPC cluster}.
 
     \vspace{.5\baselineskip}
-    Assignment~\labelcref{a-next2}: [\ldots]
+    Assignment~\labelcref{a-self-host}: [\ldots]
 
     \vspace{.5\baselineskip}
-    Goal~\labelcref{a-next2}: [\ldots]
-  & \Cref{a-next}
+    Goal~\labelcref{a-self-host}: [\ldots]
 
-  \Cref{a-next}-capstone\\
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-self-host}-capstone: [\ldots]
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-self-host}-capstone: [\ldots]
+  & \Cref{a-beyond-hpc},
+
+  \Cref{a-beyond-hpc}-capstone\\
   \DTMdate{2026-04-08}
-  & \textbf{Topic~\labelcls{a-next2}: [\ldots]}.
+  & \textbf{Topic~\labelcls{a-self-bench}: Benchmark and troubleshoot %
+    your HPC cluster}.
 
     \vspace{.5\baselineskip}
-    Assignment~\labelcref{a-next2}: [\ldots]
+    Assignment~\labelcref{a-pres-1}-capstone (group 1) %
+    \Copy{assignment-last-presentation}{%
+    15 minute final presentations %
+    summarizing program architecture, %
+    critical benchmarks including weak and strong scaling, %
+    overview of semester timeline %
+    including incorporation of course materials and practices, %
+    and future directions.}
 
     \vspace{.5\baselineskip}
-    Goal~\labelcref{a-next2}: [\ldots]
-  & \Cref{a-next}
+    Goal~\labelcref{a-pres-1}-capstone (group 1): %
+    \Copy{goal-last-presentation}{%
+    Self-assess progress and %
+    prepare preliminary data for grant application.}
+  & \Cref{a-self-host},
 
-  \Cref{a-next}-capstone\\
+  \Cref{a-self-host}-capstone\\
   \DTMdate{2026-04-15}
-  & \textbf{Topic~\labelcls{a-next2}: [\ldots]}.
+  & \textbf{Topic~\labelcls{a-pres-1}: Presentations of capstone project %
+    (group 1)}.
 
     \vspace{.5\baselineskip}
-    Assignment~\labelcref{a-next2}: [\ldots]
+    Assignment~Last-capstone (group 1): %
+    \Copy{assignment-last-submit}{%
+    Write either an NSF ACCESS Discover application %
+    or equivalent supporting grant section in your discipline %
+    using material from your final presentation %
+    summarizing overall scientific value, %
+    code architecture, %
+    critical benchmarks including weak and strong scaling, %
+    referencing software engineering practices and sustainability %
+    where possible, %
+    expected impact and future directions.}
 
     \vspace{.5\baselineskip}
-    Goal~\labelcref{a-next2}: [\ldots]
-  & \Cref{a-next}
+    Goal Last-capstone (group 1): Synthesize your analysis %
+    \Copy{goal-last-submit}{%
+    Synthesize the analyses from your final presentation %
+    into a formal written allocation application or domain grant; %
+    the written document must address all criticism from the presentation %
+    by the instructor and from classroom peers that the instructor %
+    will summarize for you after your presentation.}
 
-  \Cref{a-next}-capstone\\
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-pres-2}-capstone (group 2): %
+    \Paste{assignment-last-presentation}
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-pres-2}-capstone (group 2): %
+    \Paste{goal-last-presentation}
+  & \Cref{a-pres-1}-capstone (group 1) \\
   \DTMdate{2026-04-22}
-  & \textbf{Topic~\labelcls{a-next2}: [\ldots]}.
+  & \textbf{Topic~\labelcls{a-pres-2}: Presentations of capstone project %
+    (group 2)}.
+
+    Assignment~Last-capstone (group 2): %
+    \Paste{assignment-last-submit}
 
     \vspace{.5\baselineskip}
-    Assignment~\labelcref{a-next2}: [\ldots]
-
-    \vspace{.5\baselineskip}
-    Goal~\labelcref{a-next2}: [\ldots]
-  & \Cref{a-next}
-
-  \Cref{a-next}-capstone\\
+    Goal Last-capstone (group 2): %
+    \Paste{goal-last-submit}
+  & \Cref{a-pres-2}-capstone (group 2) \\
   \DTMusedate{exam-end-ug}
-  & \textbf{Deadline to turn in capstone project.}
-  & Capstone project \\
+  & \textbf{Deadline to turn in capstone project with grant application.}
+  & Capstone project code and %
+    written allocation or grant application %
+    (groups 1 and 2) \\
   \rowcolor{gray!20}
   \DTMusedate{grades-due}
   & \multicolumn{2}{l}{Grades due.} \\
