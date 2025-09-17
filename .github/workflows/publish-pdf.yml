@@ -1,0 +1,16 @@
+---
+name: publish-pdfs
+on: [push]                      # yamllint disable-line rule:truthy
+jobs:
+  publish-pdfs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: xu-cheng/latex-action@v4
+        with:
+          root_file: syllabus-pariksheet_nanda.tex
+          texlive_version: 2024
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: syllabus-pariksheet_nanda.pdf
+          files: syllabus-pariksheet_nanda.pdf
