@@ -1,49 +1,14 @@
-base_cv = cv-pariksheet_nanda
-base_rs = research_statement-pariksheet_nanda
-base_cl = cover_letter-pariksheet_nanda
 base_sy = syllabus-pariksheet_nanda
-logo_pitt = Shield_UnivPittsburgh_C.pdf
+img_aurora = 1920x1080-Aurora hero image.jpg
 
 rule latex
   command = command emacsclient --eval '(progn (find-file "$tex") (TeX-command-sequence t t))'
-
-build $
-  $base_cv.aux $
-  $base_cv.bcf $
-  $base_cv.log $
-  $base_cv.out $
-  $base_cv.pdf $
-  $base_cv.run.xml $
-  : latex $
-  $base_cv.tex $
-  publications.bib
-  tex = $base_cv.tex
-
-build $
-  $base_rs.aux $
-  $base_rs.bcf $
-  $base_rs.log $
-  $base_rs.out $
-  $base_rs.pdf $
-  $base_rs.run.xml $
-  : latex $
-  $base_rs.tex $
-  references.bib
-  tex = $base_rs.tex
-
-build $
-  $base_cl.aux $
-  $base_cl.log $
-  $base_cl.pdf $
-  : latex $
-  $base_cl.tex $
-  $logo_pitt
-  tex = $base_cl.tex
 
 build $
   $base_sy.aux $
   $base_sy.log $
   $base_sy.pdf $
   : latex $
-  $base_sy.tex
+  $base_sy.tex $
+  $img_aurora
   tex = $base_sy.tex
