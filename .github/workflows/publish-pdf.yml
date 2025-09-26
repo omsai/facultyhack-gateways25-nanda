@@ -1,6 +1,9 @@
 ---
 name: publish-pdfs
-on: [push]                      # yamllint disable-line rule:truthy
+on:                             # yamllint disable-line rule:truthy
+  push:
+    tags:
+      - release
 jobs:
   publish-pdfs:
     runs-on: ubuntu-latest
@@ -20,4 +23,3 @@ jobs:
             nanda-poster.pdf
             nanda-syllabus-baseline.pdf
             nanda-syllabus-revised.pdf
-        if: github.ref_type == 'tag'
