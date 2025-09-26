@@ -2,7 +2,7 @@
 name: publish-pdfs
 on:                             # yamllint disable-line rule:truthy
   push:
-    branch:
+    branches:
       - release
 jobs:
   publish-pdfs:
@@ -29,3 +29,4 @@ jobs:
             nanda-poster.pdf
             nanda-syllabus-baseline.pdf
             nanda-syllabus-revised.pdf
+        if: github.ref_type == "tag"
