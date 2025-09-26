@@ -5,13 +5,46 @@ custom
 \renewcommand{\sectionsize}{\large}
 \renewcommand{\titlesize}{\Huge}
 \graphicspath{{img/}}
+% Match template formatting of section and subsection.
+%%% \sSection - \replacement for \section*
+\renewcommand{\sSection}[1]{
+  \vspace{\secskip}
+  \begin{center}
+    \setlength{\secboxwidth}{\columnwidth}
+    \addtolength{\secboxwidth}{-1cm}
+    \colorbox{BoxCol}{
+      \begin{minipage}[c]{\secboxwidth}
+        \vspace{1.1ex}%
+        %\begin{center}
+          {\bf\sectionsize\textcolor{SectionCol}{#1}\vphantom{y}}%
+        %\end{center}
+        \vspace{0.2ex}
+      \end{minipage}
+    }
+  \end{center}
+  \par\vspace{0.375\secskip}
+}
+%
+%%% \sSubSection - replacement for \subsection*
+\renewcommand{\sSubSection}[1]{
+  \vspace{0.5\secskip}
+  {\bf \subsectionsize{} \textcolor{BoxCol}{#1}}
+  \par\vspace{0.375\secskip}
+}
 
 \usepackage{multicol}
 \setlength\columnseprule{0pt}
 \setlength{\columnsep}{2.5pc}
 
 \usepackage{tikz}
-\usetikzlibrary{mindmap}
+\usetikzlibrary{
+arrows.meta,
+decorations.markings,
+decorations.pathmorphing,
+decorations.text,
+mindmap,
+tikzmark
+}
 
 \usepackage{soul}
 
@@ -40,21 +73,26 @@ citestyle=numeric-comp
 \addbibresource{references.bib}
 \renewcommand*{\bibfont}{\footnotesize\selectfont}
 
+\usepackage[
+table
+]{xcolor}
+\definecolor{fh-blue-lighter}{HTML}{EBEFF7}
+\definecolor{fh-blue-darker}{HTML}{D4DEED}
+\definecolor{fh-blue}{HTML}{005698}
+\definecolor{fh-gold}{HTML}{F7E8C9}
+\definecolor{BoxCol}{HTML}{005698}
+\definecolor{SectionCol}{HTML}{F7E8C9}
+
 \title{GPUs for massively parallel mechanistic modeling}
-\renewcommand{\thefootnote}{\fnsymbol{footnote}}
-\author{Pariksheet Nanda\textsuperscript{\footnotemark[2]}, %
-  Elijah MacCarthy\textsuperscript{\footnotemark[3]}}
-\institute{\textsuperscript{\footnotemark[2]}University of Pittsburgh, %
-  \textsuperscript{\footnotemark[3]}Oak Ridge National Laboratory}
+\noleftlogo{}
 \norightlogo{}
-\leftlogo[1.4]{logo-pitt}
 
 \begin{document}
 \maketitle
 
 \begin{multicols}{2}
 
-  \section*{Purpose of the course}
+  \section*{Introduction}
   Graphical Processing Units (GPUs) %
   are integrated into the core architecture %
   of the world's fastest supercomputers %
@@ -68,7 +106,7 @@ citestyle=numeric-comp
   the underlying scientific numerical software %
   to efficiently use this new generation of machines.
   \medskip
-  
+
   Computing facilities grant access at no cost %
   to these GPU-accelerated%
   \supercite{%
@@ -87,101 +125,77 @@ citestyle=numeric-comp
   sustainable software practices %
   to enable large scale, GPU-centric computational research.
   \medskip
-  
-  This course trains graduate researchers %
-  with ECP-level skills in high performance computing (HPC), %
-  using research software engineer (RSE) rigor, %
-  and HPC-relevant domain scientific methods.
-  %
+
   Discussion and feedback on this poster from the community %
   can help make this course a success and %
   support similar hands-on learning and teaching endeavors.
+  \vspace{\baselineskip}
 
-  \section*{Course overview}
-  \begin{figure}
-    \begin{minipage}[c]{.31\linewidth}
-      \caption{\emph{\textbf{Course topics.}
-          %
-          The topics covered in this planned course %
-          are organized into the categories of the %
-          \textcolor{red!80!black}{$\blacksquare$}~capstone project,
-          \textcolor{orange!90!black}{$\blacksquare$}~performance optimization, %
-          \textcolor{blue!80!black}{$\blacksquare$}~software development, %
-          \textcolor{green!50!black}{$\blacksquare$}~domain science methods, and %
-          \textcolor{black!60}{$\blacksquare$}~cluster administration.
-          %
-          Each leaf node more-or-less corresponds to %
-          a single classroom session.}}
-    \end{minipage}
-    %\hfill
-    \begin{minipage}[c]{.69\linewidth}
-      \begin{tikzpicture}[
-        root concept/.style={
-          text width = 120pt,
-        },
-        level 1 concept/.style={
-          text width = 80pt,
-          level distance = 180,
-        },
-        level 2 concept/.append style={
-          text width = 70pt,
-          level distance = 120,
-        },
-        every concept/.append style={
-          font = \scriptsize,
-        },
-        mindmap,
-        ]
-        \path
-        node [concept, concept color=black, text=white] {planned course topics}
-        child [grow=90, concept color=red!80!black, text=white] {
-          node [concept] {capstone}
-          [clockwise from=150]
-          child { node [concept] {present} }
-          child { node [concept] {write proposal} }
-          child { node [concept] {submit code} }
-        }
-        child [grow=18, concept color=orange!90!black, text=white] {
-          node [concept] {performance optim.}
-          [clockwise from=135]
-          child { node [concept] {within node} }
-          child { node [concept] {multi node} }
-          child { node [concept] {GPU accel.} }
-          child { node [concept] {tuning} }
-        }
-        child [grow=306, concept color=blue!80!black, text=white] {
-          node [concept] {software dev.}
-          [clockwise from=75]
-          child { node [concept] {test} }
-          child { node [concept] {debug, checkpoint} }
-          child { node [concept] {peer review, reproduce} }
-          child { node [concept] {CI automation} }
-        }
-        child [grow=234, concept color=green!50!black, text=white] {
-          node [concept] {domain methods}
-          [counterclockwise from=180]
-          child { node [concept] {scientific param. optim.} }
-          child { node [concept] {coupling AI,~cloud, data sci.} }
-        }
-        child [grow=162, concept color=black!60, text=white] {
-          node [concept] {cluster admin.}
-          [counterclockwise from=120]
-          child { node [concept] {launch} }
-          child { node [concept] {profile} }
-        };
-      \end{tikzpicture}
-    \end{minipage}
-  \end{figure}
+  %\textcolor{fh-blue}{Target Course Description}
+  %\medskip
 
-  \begin{table}
-    \caption{\emph{\textbf{High-level comparison of topics.}
+  \subsection*{Target Course Description}
+
+  %\begin{table}
+  {
+    \rowcolors{1}{fh-blue-lighter}{fh-blue-darker}
+    \begin{tabularx}{\linewidth}{>{\bfseries}r X}
+      \toprule
+      Course Name:
+      & GPUs for massively parallel mechanistic modeling\\
+      Course Number:
+      & TBA\\
+      Department:
+      & Chemical Engineering\\
+      Anticipated Enrollment:
+      & 12\\
+      Prerequisites:
+      & fluent with at least one %
+      procedural programming language\\
+      Key Content:
+      & performance optimization, %
+      software development, %
+      domain science methods, %
+      capstone project\\
+      Description:
+      & This course trains graduate researchers %
+      with ECP-level skills in high performance computing (HPC), %
+      using research software engineer (RSE) rigor, %
+      and HPC-relevant domain scientific methods.\\
+      Project Repo:
+      & \small \url{github.com/omsai/facultyhack-gateways25-nanda}\\
+      \bottomrule
+    \end{tabularx}
+    \medskip
+  %\end{table}
+  }
+  %\textcolor{fh-blue}{Goals}
+  %\medskip
+
+  \subsection*{Goals}
+  \begin{itemize}
+  \item Develop \ul{guidelines %
+    to scope capstone projects} %
+    to ensure successful outcomes.
+  \item \ul{Reorganize software development topics} %
+    and identify dependencies %
+    to increase domain science topics.
+  \item Revise course outcomes %
+    to include \ul{numerical correctness}.
+  \item \ul{Increase accessibility} with self-guided resources %
+    for HPC algorithms and modern C++.
+  \end{itemize}
+
+  \section*{Initial Course Syllabus}
+    \textbf{High-level comparison of topics.}
         %
         Comparison of this course with the %
         2024 Argonne Training Program on Extreme-Scale Computing (ATPESC'24) %
         and the 2025 Lawrence Livermore National Laboratory %
         High Performance Computing Innovation Center (HPC-IC'25) %
         tutorial series.
-      }}
+        \medskip
+
     \begin{tabularx}{\linewidth}{%
       >{\hsize=.15\hsize\linewidth=\hsize}X %
       >{\hsize=.34\hsize\linewidth=\hsize}R %
@@ -202,16 +216,16 @@ citestyle=numeric-comp
       & \checkmark & \checkmark & \checkmark\\
       \midrule
       \multirow{7}{\hsize}{Software development}
-      & Unit and performance testing
-      & \checkmark & \checkmark & \checkmark\\
-      & Parallel debugging
-      & \checkmark & \checkmark & $\times$\\
-      & Checkpointing
-      & \checkmark & $\times$ & $\times$\\
       & Unit testing
       & \checkmark & \checkmark & $\times$\\
+      & Performance testing
+      & \checkmark & \checkmark & \checkmark\\
       & Continuous integration
       & \checkmark & $\times$ & \checkmark\\
+      & Checkpointing
+      & \checkmark & $\times$ & $\times$\\
+      & Parallel debugging
+      & \checkmark & \checkmark & $\times$\\
       & Code peer review
       & \checkmark & $\times$ & $\times$\\
       & Reproducibility
@@ -219,7 +233,7 @@ citestyle=numeric-comp
       \midrule
       \multirow{-1.5}{\hsize}{Domain science methods}
       & \mbox{Gradient-free optimization\ldots{}} \mbox{\ldots{}of model parameters}
-      & \checkmark & \checkmark & \checkmark\\
+      & \checkmark & $\times$ & \checkmark\\
       & Coupling AI, cloud, data sci.
       & \checkmark & $\times$ & \checkmark\\
       \midrule
@@ -228,33 +242,108 @@ citestyle=numeric-comp
       & \checkmark & $\times$ & \checkmark\\
       \bottomrule
     \end{tabularx}
-  \end{table}
 
-  \section*{Science gateways resources}
-  \begin{description}
-  \item[JetStream2-GPU:] non-virtual multi-GPU A100 nodes (g3.2xl)
-    \begin{itemize}
-    \item Shared between small groups of 4 students.
-    \item For early project development and exercises.
-    \item A100 supports FP64 for capstone projects that need it.
-    \item Efficient multi-GPU use is a course objective.
-    \item g3.2xl is the multi-GPU A100 with the most availability.
-    \end{itemize}
-  \item[ACCESS CI:] Bridges-2 GPU HPC Allocation
-    \begin{itemize}
-    \item For cluster exercises and scaling.
-    \item Interactive nodes with backfill scheduling and short walltime %
-    for the classroom use.
-    \end{itemize}
-  \item[GitHub Workflows:] Trainee repositories for assignments and projects
-    \begin{itemize}
-    \item Projects in private git repositories shared with the instructor.
-    \item Assignments will be partially checked using GitHub workflows.
-    \item Progress on capstone projects will be monitored from git repositories.
-    \end{itemize}
-  \end{description}
+  \section*{Modified Course Syllabus}
 
-  \section*{Syllabus changes guided by mentors, hosts \& guest speakers}
+    \medskip
+    \begin{minipage}[c]{.23\linewidth}
+      \textbf{Course topics.}
+          %
+          The topics covered in this planned course %
+          are organized into the categories of the %
+          \textcolor{red!80!black}{$\blacksquare$}~capstone project,
+          \textcolor{orange!90!black}{$\blacksquare$}~performance optimization, %
+          \textcolor{blue!80!black}{$\blacksquare$}~software development, %
+          \textcolor{green!50!black}{$\blacksquare$}~domain science methods, and %
+          \textcolor{black!60}{$\blacksquare$}~cluster administration.
+          %
+          Each leaf node more-or-less corresponds to %
+          a single classroom session.
+    \end{minipage}
+    %\hfill
+    \begin{minipage}[c]{.77\linewidth}
+      \begin{tikzpicture}[
+        root concept/.style={
+          text width = 120pt,
+        },
+        level 1 concept/.style={
+          text width = 80pt,
+          level distance = 180,
+        },
+        level 2 concept/.append style={
+          text width = 70pt,
+          level distance = 120,
+        },
+        every concept/.append style={
+          font = \scriptsize,
+        },
+        mindmap,
+        ]
+        \path
+        node [concept, concept color=black, text=white, name=node-concept]
+        {course topics}
+        child [grow=90, concept color=red!80!black, text=white] {
+          node [concept] {capstone}
+          [clockwise from=210]
+          child { node [concept] {present} }
+          child { node [concept] {write proposal} }
+          child { node [concept] {submit code} }
+          child { node [concept] {write abstract} }
+        }
+        child [grow=18, concept color=orange!90!black, text=white] {
+          node [concept] {performance optim.}
+          [clockwise from=90]
+          child { node [concept] {within node} }
+          child { node [concept] {multi node} }
+          child { node [concept] {GPU accel.} }
+          child { node [concept] {tuning} }
+        }
+        child [grow=306, concept color=blue!80!black, text=white] {
+          node [concept] {software dev.}
+          [clockwise from=0]
+          child { node [concept] {test, CI} }
+          child { node [concept] {debug, checkpoint} }
+          child { node [concept] {peer review, reproduce} }
+        }
+        child [grow=234, concept color=green!50!black, text=white] {
+          node [concept] {domain methods}
+          [counterclockwise from=205]
+          child { node [concept] {coupling AI,~cloud, data sci.} }
+          child { node [concept] {scientific param. optim.} }
+        }
+        child [grow=162, concept color=black!60, text=white] {
+          node [concept] {cluster admin.}
+          [counterclockwise from=125]
+          child { node [concept] {launch} }
+          child { node [concept] {profile} }
+        };
+        \draw [%
+        very thick,
+        {Circle[length=0.5em]-Stealth[harpoon,length=1em]},
+        postaction={
+          decorate,
+          decoration={
+            text align={left},
+            raise={0.5em},
+            text along path,
+            text={Start}
+          }
+        },
+        postaction={
+          decorate,
+          decoration={
+            text align={right},
+            raise={0.5em},
+            text along path,
+            text={End}
+          }
+        }]
+        ([shift=(66:14em)]node-concept) arc (66:-275:14em);
+      \end{tikzpicture}
+    \end{minipage}
+
+
+  \section*{Mentors Suggestions}
   \begin{multicols}{2}
     \begin{enumerate}
     \item \ul{Consolidated course topics} %
@@ -291,34 +380,54 @@ citestyle=numeric-comp
     \end{enumerate}
   \end{multicols}
 
-  \section*{Acknowledgments}
-  This course revision was supported %
-  by the FacultyHack hosts and mentors %
-  under NSF award 2231406; %
-  however no NSF financial support was provided %
-  because this is a new course being piloted %
-  and not an existing course begin revised.
-  \medskip
+  \section*{Science Gateways Resources Used}
+  \begin{description}
+  \item[JetStream2-GPU:] non-virtual multi-GPU A100 nodes (g3.2xl)
+    \begin{itemize}
+    \item Shared between small groups of 4 students.
+    \item For early project development and exercises.
+    \item A100 supports FP64 for capstone projects that need it.
+    \item Efficient multi-GPU use is a course objective.
+    \item g3.2xl is the multi-GPU A100 with the most availability.
+    \end{itemize}
+  \item[ACCESS CI:] Bridges-2 GPU HPC Allocation
+    \begin{itemize}
+    \item For cluster exercises and scaling.
+    \item Interactive nodes with backfill scheduling and short walltime %
+    for the classroom use.
+    \end{itemize}
+  \item[GitHub Workflows:] Trainee repositories for assignments and projects
+    \begin{itemize}
+    \item Projects in private git repositories shared with the instructor.
+    \item Assignments will be partially checked using GitHub workflows.
+    \item Progress on capstone projects will be monitored from git repositories.
+    \end{itemize}
+  \end{description}
 
-  Developing HPC expertise was supported by the 2024 %
-  Argonne Training Program on Extreme-Scale Computing (ATPESC) %
-  by the Department of Energy, %
-  Office of Science, %
-  Advanced Scientific Computing Research (ASCR) program.
-  %
-  Additional HPC expertise was supported by the 2025 Tutorials from the %
-  High Performance Computing Innovation Center (HPC-IC) at %
-  Lawrence Livermore National Laboratory.
-  \medskip
-
-  The uncertainty quantification methodologies %
-  for agent-based, mechanistic, multiscale modeling %
-  and similar gradient-free approaches%
-  \supercite{%
-    nanda_2023,%
-    aguiar_2024%
-  } % 
-  were supported by NIH grant R01~AI50684.
+  \section*{Expansions}
+  \begin{multicols}{2}
+    \begin{enumerate}
+    \item Accommodate \ul{undergraduate students} %
+      with more structure, %
+      shorter exercises, %
+      and allow them to choose from a set of smaller capstone projects.
+    \item For the last ``fun'' topic before final presentations %
+      \ul{launch the cluster using Raspberry Pis}, %
+      networking hardware, and network storage %
+      for a more memorable hands-on lesson.
+    \item Develop an \ul{time-saving exercise for model comparison} %
+      to demonstrate the usefulness %
+      of detailed benchmarking and analysis tools %
+      \ul{to rapidly iterating model development}.
+    \item Create \ul{interactive trivial exercises in a web page} %
+      to encourage trainee progress with %
+      a live updating grading rubric %
+      and suggestions to correct common errors.
+    \item \ul{Compartmentalize topics %
+      into the 2-day workshop format} %
+      to be taught at the Pittsburgh Supercomputing Center (PSC).
+    \end{enumerate}
+  \end{multicols}
 
   \section*{References}
   {
@@ -329,6 +438,53 @@ citestyle=numeric-comp
       \printbibliography[heading=none]{}
     \end{multicols}
   }
+
+  \section*{Authors}
+  {
+    \setlength{\parindent}{5em}
+
+    \textbf{\textcolor{fh-blue}{\tikzmark{pn}Nanda, Pariksheet}}
+
+    Role: Faculty Participant
+
+    University of Pittsburgh
+
+    pan79@pitt.edu
+    \vspace{\baselineskip}
+
+    \textbf{\textcolor{fh-blue}{\tikzmark{em}MacCarthy, Elijah}}
+
+    Role: Community Mentor
+
+    Oak Ridge National Laboratory
+
+    maccarthyea@ornl.gov
+  }
+  \begin{tikzpicture}[%
+    remember picture,
+    overlay]
+    \node at (pic cs:pn) [%
+    anchor = north east,
+    yshift = \baselineskip] {%
+    \includegraphics[%
+    keepaspectratio,
+    width=10em,
+    height=5em,
+    clip,
+    trim={55 85 50 35}]{%
+        pariksheet.png}};
+
+    \node at (pic cs:em) [%
+    anchor = north east,
+    yshift = \baselineskip] {%
+    \includegraphics[%
+    keepaspectratio,
+    width=10em,
+    height=5em,
+    clip,
+    trim={20 80 60 5}]{%
+        elijah.jpg}};
+  \end{tikzpicture}
 
 \end{multicols}
 
