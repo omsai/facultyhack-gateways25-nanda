@@ -1,20 +1,11 @@
 ---
 name: publish-pdfs
-on:                             # yamllint disable-line rule:truthy
-  push:
-    branches:
-      - release
+on: [push]                      # yamllint disable-line rule:truthy
 jobs:
   publish-pdfs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Create tag
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git tag -a "v${{ github.run_number }}" -m "Release v${{ github.run_number }}"
-          git push origin "v${{ github.run_number }}"
       - uses: xu-cheng/latex-action@v4
         with:
           root_file: |
@@ -29,4 +20,4 @@ jobs:
             nanda-poster.pdf
             nanda-syllabus-baseline.pdf
             nanda-syllabus-revised.pdf
-        if: github.ref_type == "tag"
+        if: github.ref_type == 'tag'
