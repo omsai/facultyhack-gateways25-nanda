@@ -1,14 +1,39 @@
-base_sy = syllabus-pariksheet_nanda
-img_aurora = 1920x1080-Aurora hero image.jpg
+poster = nanda-poster
+sy_base = nanda-syllabus-baseline
+sy_rev = nanda-syllabus-revised
+img_aurora = img/1920x1080-Aurora hero image.jpg
+img_pitt = img/logo-pitt.pdf
+bib = references.bib
 
 rule latex
   command = command emacsclient --eval '(progn (find-file "$tex") (TeX-command-sequence t t))'
 
 build $
-  $base_sy.aux $
-  $base_sy.log $
-  $base_sy.pdf $
+  $poster.aux $
+  $poster.log $
+  $poster.pdf $
   : latex $
-  $base_sy.tex $
-  $img_aurora
-  tex = $base_sy.tex
+  $poster.tex $
+  $img_pitt $
+  $bib
+  tex = $poster.tex
+
+build $
+  $sy_base.aux $
+  $sy_base.log $
+  $sy_base.pdf $
+  : latex $
+  $sy_base.tex $
+  $img_aurora $
+  $bib
+  tex = $sy_base.tex
+
+build $
+  $sy_rev.aux $
+  $sy_rev.log $
+  $sy_rev.pdf $
+  : latex $
+  $sy_rev.tex $
+  $img_aurora $
+  $bib
+  tex = $sy_rev.tex
