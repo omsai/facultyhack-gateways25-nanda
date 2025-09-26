@@ -20,4 +20,4 @@ jobs:
             nanda-poster.pdf
             nanda-syllabus-baseline.pdf
             nanda-syllabus-revised.pdf
-        if: github.ref_type == "tag"
+        if: github.ref_type == 'tag'
