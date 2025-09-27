@@ -1,36 +1,115 @@
-\documentclass[
-portrait,
-custom
-]{sciposter}
-\renewcommand{\sectionsize}{\large}
-\renewcommand{\titlesize}{\Huge}
+\documentclass{article}
+% \usepackage{anyfontsize}
+\usepackage{a0size}             % For arbitrary sized font.
+\renewcommand{\familydefault}{\sfdefault}
+\renewcommand{\tiny}{\fontsize{12}{14}\selectfont}
+\renewcommand{\scriptsize}{\fontsize{14.4}{18}\selectfont}
+\renewcommand{\footnotesize}{\fontsize{17.28}{22}\selectfont}
+\renewcommand{\small}{\fontsize{20.74}{25}\selectfont}
+\renewcommand{\normalsize}{\fontsize{24.88}{30}\selectfont}
+\renewcommand{\large}{\fontsize{29.86}{37}\selectfont}
+\renewcommand{\Large}{\fontsize{35.83}{45}\selectfont}
+\renewcommand{\LARGE}{\fontsize{43}{54}\selectfont}
+\renewcommand{\huge}{\fontsize{51.6}{64}\selectfont}
+\renewcommand{\Huge}{\fontsize{61.92}{77}\selectfont}
+\newcommand{\veryHuge}{\fontsize{74.3}{93}\selectfont}
+\newcommand{\VeryHuge}{\fontsize{89.16}{212}\selectfont}
+\newcommand{\VERYHuge}{\fontsize{107}{134}\selectfont}
+\usepackage[
+paperwidth=30in,
+paperheight=45in,
+margin=0.5cm,
+head=2.66685in,
+foot=1.78685in,
+includehead,
+includefoot,
+%showframe
+]{geometry}
+\usepackage{fancyhdr}
+\title{GPUs for massively parallel mechanistic modeling}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{2.66685in} % 2.47in + 0.5cm
+\fancyhead[L]{%
+  \begin{tikzpicture}[%
+    background rectangle/.style = {
+      fill = fh-blue,
+      inner sep = 0pt,
+    },
+    show background rectangle,
+    tight background,
+    scale = 1]
+    \node (ref) [
+    inner sep = 0,
+    minimum width = 30in - 1cm,
+    minimum height = 2.47in] {};
+    \node at (ref.north west) [anchor = north west, name = fh] {%
+      \includegraphics[height=2.47in]{fh.png}};
+    \node at (ref.south east) [%
+    anchor = south east, %
+    name = nsf-text,
+    text = fh-gold,
+    scale = 1.7,
+    text width = width("under award number 2231406"),
+    align = center] {%
+      SGX3 is funded by the \mbox{National Science Foundation} %
+      under award number 2231406};
+    \path let \p1 = (ref.north), \p2 = (nsf-text.north), \n1 = {\y1 - \y2} in
+    node at (nsf-text.north) [anchor = south, name = nsf] {%
+      \includegraphics[height=\n1]{nsf.png}};
+    \node at (fh.east) [%
+    anchor = west,
+    text = fh-gold,
+    scale = 7,
+    text width = width("GPUs for massively parallel")] {%
+      GPUs for massively parallel mechanistic modeling%
+    };
+  \end{tikzpicture}%
+}
+\fancyhead[C,R]{}
+\setlength{\footskip}{1.78685in} % 1.59in + 0.5cm
+\fancyfoot[L]{%
+  \begin{tikzpicture}[%
+    background rectangle/.style = {
+      fill = fh-blue,
+      inner sep = 0pt,
+    },
+    show background rectangle,
+    tight background,
+    scale = 1]
+    \pgfdeclarelayer{foreground}
+    \pgfsetlayers{background,main,foreground}
+    \begin{pgfonlayer}{foreground}
+    \node (ref) [
+    inner sep = 0,
+    minimum width = 30in - 1cm,
+    minimum height = 1.59in] {};
+    \node (sgx3) at ([xshift=0.5cm]ref.west) [anchor = west] {%
+      \includegraphics[height=0.85in]{sgx3.png}};
+    \node (ornl) at (sgx3.east) [anchor = west] {%
+      \includegraphics[height=1.04in]{ornl.png}};
+    \node (omnibond) at (ornl.east) [anchor = west] {%
+      \includegraphics[height=0.87in]{omnibond.jpg}};
+    \node (tacc) at (omnibond.east) [anchor = west] {%
+      \includegraphics[height=0.87in]{tacc.png}};
+    \node (qr-code) at (ref.east) [anchor = east, outer sep = 0.25cm] {%
+      \includegraphics[height=1.32in]{qr-code.png}};
+    \node at (qr-code.west) [anchor = east, text = fh-gold, scale = 3.5] {%
+      \textbf{Event Site:} %
+      \url{https://hackhpc.github.io/facultyhack-gateways25}
+      };
+    \end{pgfonlayer}
+    \begin{pgfonlayer}{main}
+      \node [
+      inner sep = 0pt, fit = (sgx3) (ornl) (omnibond) (tacc), fill = white] {};
+    \end{pgfonlayer}
+  \end{tikzpicture}%
+}
+\fancyfoot[C]{}
+
+\usepackage{graphicx}
 \graphicspath{{img/}}
-% Match template formatting of section and subsection.
-%%% \sSection - \replacement for \section*
-\renewcommand{\sSection}[1]{
-  \vspace{\secskip}
-  \begin{center}
-    \setlength{\secboxwidth}{\columnwidth}
-    \addtolength{\secboxwidth}{-1cm}
-    \colorbox{BoxCol}{
-      \begin{minipage}[c]{\secboxwidth}
-        \vspace{1.1ex}%
-        %\begin{center}
-          {\bf\sectionsize\textcolor{SectionCol}{#1}\vphantom{y}}%
-        %\end{center}
-        \vspace{0.2ex}
-      \end{minipage}
-    }
-  \end{center}
-  \par\vspace{0.375\secskip}
-}
-%
-%%% \sSubSection - replacement for \subsection*
-\renewcommand{\sSubSection}[1]{
-  \vspace{0.5\secskip}
-  {\bf \subsectionsize{} \textcolor{BoxCol}{#1}}
-  \par\vspace{0.375\secskip}
-}
 
 \usepackage{multicol}
 \setlength\columnseprule{0pt}
@@ -39,9 +118,12 @@ custom
 \usepackage{tikz}
 \usetikzlibrary{
 arrows.meta,
+backgrounds,
+calc,
 decorations.markings,
 decorations.pathmorphing,
 decorations.text,
+fit,
 mindmap,
 tikzmark
 }
@@ -80,19 +162,20 @@ table
 \definecolor{fh-blue-darker}{HTML}{D4DEED}
 \definecolor{fh-blue}{HTML}{005698}
 \definecolor{fh-gold}{HTML}{F7E8C9}
-\definecolor{BoxCol}{HTML}{005698}
-\definecolor{SectionCol}{HTML}{F7E8C9}
 
-\title{GPUs for massively parallel mechanistic modeling}
-\noleftlogo{}
-\norightlogo{}
+\usepackage{tcolorbox}
+\newcommand{\sectionbox}[1]{%
+  \begin{tcolorbox}[sharp corners,boxrule=0pt,colback=fh-blue,coltext=fh-gold]%
+    \section*{#1\vphantom{Yy}}%
+  \end{tcolorbox}%
+}
 
 \begin{document}
-\maketitle
 
 \begin{multicols}{2}
 
-  \section*{Introduction}
+  \sectionbox{Introduction}%
+  \noindent
   Graphical Processing Units (GPUs) %
   are integrated into the core architecture %
   of the world's fastest supercomputers %
@@ -134,7 +217,7 @@ table
   %\textcolor{fh-blue}{Target Course Description}
   %\medskip
 
-  \subsection*{Target Course Description}
+  \subsection*{\textcolor{fh-blue}{Target Course Description}}
 
   %\begin{table}
   {
@@ -172,7 +255,7 @@ table
   %\textcolor{fh-blue}{Goals}
   %\medskip
 
-  \subsection*{Goals}
+  \subsection*{\textcolor{fh-blue}{Goals}}
   \begin{itemize}
   \item Setup student \ul{JetStream2 VM} for homework and capstone projects.
   \item Add students to my \ul{ACCESS group} for cluster runs and %
@@ -181,7 +264,8 @@ table
   \item Train students to \ul{package their project}.
   \end{itemize}
 
-  \section*{Initial Course Syllabus}
+  \sectionbox{Initial Course Syllabus}%
+  \noindent
     \textbf{High-level comparison of topics.}
         %
         Comparison of this course with the %
@@ -191,6 +275,7 @@ table
         tutorial series.
         \medskip
 
+    \noindent
     \begin{tabularx}{\linewidth}{%
       >{\hsize=.15\hsize\linewidth=\hsize}X %
       >{\hsize=.34\hsize\linewidth=\hsize}R %
@@ -207,7 +292,7 @@ table
       & \checkmark & \checkmark & $\times$\\
       & Multi-node
       & \checkmark & \checkmark & \checkmark\\
-      & \mbox{GPU performance\ldots} \ldots{}portability
+      & GPU performance portability
       & \checkmark & \checkmark & \checkmark\\
       \midrule
       \multirow{7}{\hsize}{Software development}
@@ -218,7 +303,7 @@ table
       & Continuous integration
       & \checkmark & $\times$ & \checkmark\\
       & Checkpointing
-      & \checkmark & $\times$ & $\times$\\
+      & \checkmark & $\times$ & \checkmark\\
       & Parallel debugging
       & \checkmark & \checkmark & $\times$\\
       & Code peer review
@@ -237,10 +322,11 @@ table
       & \checkmark & $\times$ & \checkmark\\
       \bottomrule
     \end{tabularx}
+    \bigskip
 
-  \section*{Modified Course Syllabus}
+  \sectionbox{Modified Course Syllabus}
 
-    \medskip
+    \bigskip
     \begin{minipage}[c]{.23\linewidth}
       \textbf{Course topics.}
           %
@@ -333,12 +419,12 @@ table
             text={End}
           }
         }]
-        ([shift=(66:14em)]node-concept) arc (66:-275:14em);
+        ([shift=(66:15em)]node-concept) arc (66:-275:15em);
       \end{tikzpicture}
     \end{minipage}
 
 
-  \section*{Mentors Suggestions}
+  \sectionbox{Mentors Suggestions}%
   \begin{multicols}{2}
     \begin{enumerate}
     \item \ul{Added network communication exercises} %
@@ -375,7 +461,7 @@ table
     \end{enumerate}
   \end{multicols}
 
-  \section*{Science Gateways Resources Used}
+  \sectionbox{Science Gateways Resources Used}%
   \begin{description}
   \item[JetStream2-GPU:] non-virtual multi-GPU A100 nodes (g3.2xl)
     \begin{itemize}
@@ -399,7 +485,7 @@ table
     \end{itemize}
   \end{description}
 
-  \section*{Expansions}
+  \sectionbox{Expansions}%
   \begin{multicols}{2}
     \begin{enumerate}
     \item Accommodate \ul{undergraduate students} %
@@ -424,7 +510,7 @@ table
     \end{enumerate}
   \end{multicols}
 
-  \section*{References}
+  \sectionbox{References}
   {
     % Recalculate \columnsep instead of using the large \columnsep
     % from the main document.
@@ -434,7 +520,7 @@ table
     \end{multicols}
   }
 
-  \section*{Authors}
+  \sectionbox{Authors}%
   {
     \setlength{\parindent}{5em}
 
