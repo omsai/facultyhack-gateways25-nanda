@@ -212,14 +212,29 @@ table
   Discussion and feedback on this poster from the community %
   can help make this course a success and %
   support similar hands-on learning and teaching endeavors.
-  \vspace{\baselineskip}
+  \medskip
 
-  %\textcolor{fh-blue}{Target Course Description}
-  %\medskip
+  \noindent
+  \begin{minipage}[c]{.36\linewidth}
+    \includegraphics[width=\linewidth]{1920x1080-Aurora hero image.jpg}
+  \end{minipage}
+  \begin{minipage}[c]{.62\linewidth}
+    \textbf{Modern exascale computers use GPU architectures.}
+    %
+    Left photo is the Aurora supercomputer at Argonne National Laboratory %
+    that is ranked 3\textsuperscript{rd} in the Top 500 List of June 2025 %
+    and one of three US exascale supercomputers.
+    %
+    Germany recently launched their first exascale supercomputer, JUPITER, %
+    and China may have as many as 10 exascale supercomputers %
+    by the end of this year\supercite{dongarra_2023} %
+    but stopped submitting data to the Top 500 List %
+    after US GPU embargoes.
+  \end{minipage}
+  \vspace{\baselineskip}
 
   \subsection*{\textcolor{fh-blue}{Target Course Description}}
 
-  %\begin{table}
   {
     \rowcolors{1}{fh-blue-lighter}{fh-blue-darker}
     \begin{tabularx}{\linewidth}{>{\bfseries}r X}
@@ -246,14 +261,10 @@ table
       using research software engineer (RSE) rigor, %
       and HPC-relevant domain scientific methods.\\
       Project Repo:
-      & \small \url{github.com/omsai/facultyhack-gateways25-nanda}\\
+      & \small \url{https://github.com/omsai/facultyhack-gateways25-nanda}\\
       \bottomrule
     \end{tabularx}
-    \medskip
-  %\end{table}
   }
-  %\textcolor{fh-blue}{Goals}
-  %\medskip
 
   \subsection*{\textcolor{fh-blue}{Goals}}
   \begin{itemize}
@@ -283,9 +294,9 @@ table
       >{\hsize=.16\hsize\linewidth=\hsize}C %
       >{\hsize=.16\hsize\linewidth=\hsize}C}
       \toprule
-      \bf{Category}
-      & \bf{Topic}
-      & \bf{This Course} & \bf{ATPESC'24} & \bf{HPC-IC'25}\\
+      \textbf{Category}
+      & \textbf{Topic}
+      & \textbf{This Course} & \textbf{ATPESC'24} & \textbf{HPC-IC'25}\\
       \midrule
       \multirow{4}{\hsize}{Performance optimization}
       & Within node
@@ -402,9 +413,8 @@ table
         }
         child [grow=162, concept color=black!60, text=white] {
           node [concept] {cluster admin.}
-          [clockwise from=190]
-          child { node [concept] {launch} }
-          child { node [concept] {profile} }
+          [clockwise from=162]
+          child { node [concept] {launch, profile} }
         };
         \draw [%
         very thick,
@@ -469,8 +479,14 @@ table
   \end{multicols}
 
   \sectionbox{Science Gateways Resources Used}%
-  \begin{description}
-  \item[JetStream2-GPU:] Non-virtual multi-GPU A100 nodes (g3.2xl)
+  \begin{tikzpicture}
+    \node (ref) [minimum width = \linewidth] {};
+
+    \node (jetstream) at (ref.north west) [anchor = north west] {%
+      \includegraphics[width=.2\linewidth]{jetstream2-head-logo.pdf}};
+    \node (jetstream-text) at (jetstream.north east) [%
+    anchor = north west, text width = .78\linewidth] {%
+    \textbf{Non-virtual multi-GPU A100 nodes (g3.2xl)}
     \begin{itemize}
     \item Shared between small groups of 4 students.
     \item For early project development and exercises.
@@ -479,7 +495,14 @@ table
     \item Efficient multi-GPU use is a course objective.
     \item g3.2xl is the multi-GPU A100 with the most availability.
     \end{itemize}
-  \item[ACCESS CI:] Bridges-2 GPU HPC Allocation
+    };
+
+    \node (access) at (jetstream.west |- jetstream-text.south) [%
+    anchor = north west, yshift = -\baselineskip] {%
+      \includegraphics[width=.2\linewidth]{access-logo.pdf}};
+    \node (access-text) at (access.north east) [%
+    anchor = north west, text width = .78\linewidth] {%
+    \textbf{Bridges-2 GPU HPC Allocation}
     \begin{itemize}
     \item For cluster exercises and scaling.
     \item Interactive nodes with backfill scheduling and short walltime %
@@ -489,18 +512,36 @@ table
     to continue their work %
     after leaving the instructor's ACCESS CI group.
     \end{itemize}
-  \item[HPC Carpentry:] Introduction and workflows
+    };
+
+    \node (hpcc) at (access.west |- access-text.south) [%
+    anchor = north west, yshift = -\baselineskip] {%
+      \includegraphics[width=.2\linewidth]{hpc-carpentry.pdf}};
+    \node (hpcc-text) at (hpcc.north east) [%
+    anchor = north west, text width = .78\linewidth] {%
+    \textbf{HPC introduction and reproducible workflows}
     \begin{itemize}
-    \item Supplemental reading for %
-      concepts, scaling, and reproducible workflows.
+    \item Self-paced introduction to key concepts of the  HPC environment.
+    \item Supplementary reading for %
+      capstone project reproducible workflows %
+      for coupling AI, cloud, and data science tools.
     \end{itemize}
-  \item[GitHub Workflows:] Trainee repositories for assignments and projects
+    };
+
+    \node (gha) at (hpcc.west |- hpcc-text.south) [%
+    anchor = north west, yshift = -\baselineskip] {%
+      \includegraphics[width=.1\linewidth]{github-mark.pdf}%
+      \includegraphics[width=.1\linewidth]{actions-icon-actions.pdf}};
+    \node (gha-text) at (gha.north east) [%
+    anchor = north west, text width = .78\linewidth] {%
+    \textbf{Trainee GitHub repositories for assignments and capstone projects}
     \begin{itemize}
     \item Projects in private git repositories shared with the instructor.
-    \item Assignments will be partially checked using GitHub workflows.
+    \item Assignments partially checked using GitHub actions.
     \item Progress on capstone projects will be monitored from git repositories.
     \end{itemize}
-  \end{description}
+    };
+  \end{tikzpicture}
 
   \sectionbox{Expansions}%
   \begin{multicols}{2}
