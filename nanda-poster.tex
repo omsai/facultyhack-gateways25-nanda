@@ -165,7 +165,7 @@ table
 
 \usepackage{tcolorbox}
 \newcommand{\sectionbox}[1]{%
-  \begin{tcolorbox}[sharp corners,boxrule=0pt,colback=fh-blue,coltext=fh-gold]%
+  \begin{tcolorbox}[sharp corners,boxrule=0pt,top=15pt,colback=fh-blue,coltext=fh-gold]%
     \section*{#1\vphantom{Yy}}%
   \end{tcolorbox}%
 }
@@ -283,16 +283,18 @@ table
       >{\hsize=.16\hsize\linewidth=\hsize}C %
       >{\hsize=.16\hsize\linewidth=\hsize}C}
       \toprule
-      Category
-      & Topic
-      & This Course & ATPESC'24 & HPC-IC'25\\
+      \bf{Category}
+      & \bf{Topic}
+      & \bf{This Course} & \bf{ATPESC'24} & \bf{HPC-IC'25}\\
       \midrule
-      \multirow{3}{\hsize}{Performance optimization}
+      \multirow{4}{\hsize}{Performance optimization}
       & Within node
       & \checkmark & \checkmark & $\times$\\
       & Multi-node
       & \checkmark & \checkmark & \checkmark\\
       & GPU performance portability
+      & \checkmark & \checkmark & \checkmark\\
+      & Performance tuning
       & \checkmark & \checkmark & \checkmark\\
       \midrule
       \multirow{7}{\hsize}{Software development}
@@ -311,15 +313,20 @@ table
       & Reproducibility
       & \checkmark & \checkmark & \checkmark\\
       \midrule
-      \multirow{-1.5}{\hsize}{Domain science methods}
-      & \mbox{Gradient-free optimization\ldots{}} \mbox{\ldots{}of model parameters}
-      & \checkmark & $\times$ & \checkmark\\
-      & Coupling AI, cloud, data sci.
+      \multirow{-0.5}{\hsize}{Domain science methods}
+      & \mbox{Gradient-free optimization of\ldots{}} %
+        \mbox{\ldots{}scientific model parameters}
+      & \checkmark & $\times$ & $\times$\\
+      & Mechanistic multiscale modeling
+      & \checkmark & $\times$ & $\times$\\
+      & Coupling AI, cloud, data science
       & \checkmark & $\times$ & \checkmark\\
       \midrule
-      Sysadmin
+      \multirow{2}{\hsize}{Sysadmin}
       & Cluster launch
       & \checkmark & $\times$ & \checkmark\\
+      & Cluster profiling
+      & \checkmark & \checkmark & \checkmark\\
       \bottomrule
     \end{tabularx}
     \bigskip
@@ -327,10 +334,10 @@ table
   \sectionbox{Modified Course Syllabus}
 
     \bigskip
-    \begin{minipage}[c]{.23\linewidth}
+    \begin{minipage}[c]{.27\linewidth}
       \textbf{Course topics.}
           %
-          The topics covered in this planned course %
+          The topics covered in this course %
           are organized into the categories of the %
           \textcolor{red!80!black}{$\blacksquare$}~capstone project,
           \textcolor{orange!90!black}{$\blacksquare$}~performance optimization, %
@@ -339,10 +346,10 @@ table
           \textcolor{black!60}{$\blacksquare$}~cluster administration.
           %
           Each leaf node more-or-less corresponds to %
-          a single classroom session.
+          a single week of semester classroom sessions.
     \end{minipage}
     %\hfill
-    \begin{minipage}[c]{.77\linewidth}
+    \begin{minipage}[c]{.73\linewidth}
       \begin{tikzpicture}[
         root concept/.style={
           text width = 120pt,
@@ -388,13 +395,14 @@ table
         }
         child [grow=234, concept color=green!50!black, text=white] {
           node [concept] {domain methods}
-          [counterclockwise from=205]
-          child { node [concept] {coupling AI,~cloud, data sci.} }
+          [clockwise from=285]
           child { node [concept] {scientific param. optim.} }
+          child { node [concept] {mech. multiscale modeling} }
+          child { node [concept] {coupling AI,~cloud, data sci.} }
         }
         child [grow=162, concept color=black!60, text=white] {
           node [concept] {cluster admin.}
-          [counterclockwise from=125]
+          [clockwise from=190]
           child { node [concept] {launch} }
           child { node [concept] {profile} }
         };
@@ -422,7 +430,6 @@ table
         ([shift=(66:15em)]node-concept) arc (66:-275:15em);
       \end{tikzpicture}
     \end{minipage}
-
 
   \sectionbox{Mentors Suggestions}%
   \begin{multicols}{2}
@@ -463,11 +470,12 @@ table
 
   \sectionbox{Science Gateways Resources Used}%
   \begin{description}
-  \item[JetStream2-GPU:] non-virtual multi-GPU A100 nodes (g3.2xl)
+  \item[JetStream2-GPU:] Non-virtual multi-GPU A100 nodes (g3.2xl)
     \begin{itemize}
     \item Shared between small groups of 4 students.
     \item For early project development and exercises.
-    \item A100 supports FP64 for capstone projects that need it.
+    \item A100 supports 64-bit floating point operations %
+      for capstone projects that may require it.
     \item Efficient multi-GPU use is a course objective.
     \item g3.2xl is the multi-GPU A100 with the most availability.
     \end{itemize}
@@ -476,6 +484,15 @@ table
     \item For cluster exercises and scaling.
     \item Interactive nodes with backfill scheduling and short walltime %
     for the classroom use.
+  \item Trainees are encouraged %
+    to apply for their own ACCESS CI allocations %
+    to continue their work %
+    after leaving the instructor's ACCESS CI group.
+    \end{itemize}
+  \item[HPC Carpentry:] Introduction and workflows
+    \begin{itemize}
+    \item Supplemental reading for %
+      concepts, scaling, and reproducible workflows.
     \end{itemize}
   \item[GitHub Workflows:] Trainee repositories for assignments and projects
     \begin{itemize}
