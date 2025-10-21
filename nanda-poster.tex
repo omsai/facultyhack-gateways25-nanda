@@ -147,7 +147,8 @@ minnames=2,
 maxbibnames=99,
 sorting=none,
 style=vancouver,
-citestyle=numeric-comp
+citestyle=numeric-comp,
+url=false,
 ]{biblatex}
 % The vancouver citation style is based on NLM per
 % https://tex.stackexchange.com/a/371433
@@ -169,6 +170,12 @@ table
     \section*{#1\vphantom{Yy}}%
   \end{tcolorbox}%
 }
+
+% Reduce excessive hyphenation https://stackoverflow.com/a/65156105
+\tolerance=9999
+\emergencystretch=10pt
+\hyphenpenalty=10000
+\exhyphenpenalty=100
 
 \begin{document}
 
@@ -259,8 +266,9 @@ table
     after US GPU embargoes.
   \end{minipage}
 
+  \vspace{-.5\baselineskip}
   \subsection*{\textcolor{fh-blue}{Target Course Description}}
-
+  \vspace{-.5\baselineskip}
   {
     \rowcolors{1}{fh-blue-lighter}{fh-blue-darker}
     \begin{tabularx}{\linewidth}{>{\bfseries}r X}
@@ -292,10 +300,11 @@ table
     \end{tabularx}
   }
 
-  \vspace{-.5\baselineskip}
+  \vspace{-\baselineskip}
   \subsection*{\textcolor{fh-blue}{Goals}}
+  \vspace{-.5\baselineskip}
   \begin{itemize}
-  \setlength{\itemsep}{0em}
+  \setlength{\itemsep}{-.5em}
   \item Setup student \ul{JetStream2 VM} for homework and capstone projects.
   \item Add students to my \ul{ACCESS group} for cluster runs and %
     help them get their own ACCESS allocation.
@@ -312,14 +321,12 @@ table
     below = intro,
   }{%
   \noindent
-    \textbf{High-level comparison of topics.}
-        %
-        Comparison of this course with the %
-        2024 Argonne Training Program on Extreme-Scale Computing (ATPESC'24) %
-        and the 2025 Lawrence Livermore National Laboratory %
-        High Performance Computing Innovation Center (HPC-IC'25) %
-        tutorial series.
-        \medskip
+  This course was inspired by the %
+  2024 Argonne Training Program on Extreme-Scale Computing (ATPESC'24) %
+  and the 2025 LLNL %
+  High Performance Computing Innovation Center (HPC-IC'25) %
+  tutorial series.
+  \medskip
 
     \noindent
     \begin{tabularx}{\linewidth}{%
@@ -333,7 +340,8 @@ table
       & \textbf{Topic}
       & \textbf{This Course} & \textbf{ATPESC'24} & \textbf{HPC-IC'25}\\
       \midrule
-      \multirow{4}{\hsize}{Performance optimization}
+      \multirow{4}{\hsize}{Performance optimization
+      \textcolor{orange!90!black}{$\blacksquare$}}
       & Within node
       & \checkmark & \checkmark & $\times$\\
       & Multi-node
@@ -343,32 +351,32 @@ table
       & Performance tuning
       & \checkmark & \checkmark & \checkmark\\
       \midrule
-      \multirow{7}{\hsize}{Software development}
+      \multirow{9}{\hsize}{Software development
+      \textcolor{blue!80!black}{$\blacksquare$}}
       & Unit testing
       & \checkmark & \checkmark & $\times$\\
       & Performance testing
       & \checkmark & \checkmark & \checkmark\\
-      & Continuous integration
-      & \checkmark & $\times$ & \checkmark\\
-      & Checkpointing
+      & CI, checkpointing, benchmarking
       & \checkmark & $\times$ & \checkmark\\
       & Parallel debugging
       & \checkmark & \checkmark & $\times$\\
-      & Code peer review
+      & Code peer review, documentation
       & \checkmark & $\times$ & $\times$\\
-      & Reproducibility
+      & Packaging
       & \checkmark & \checkmark & \checkmark\\
       \midrule
-      \multirow{-0.5}{\hsize}{Domain science methods}
-      & \mbox{Gradient-free optimization of\ldots{}} %
-        \mbox{\ldots{}scientific model parameters}
-      & \checkmark & $\times$ & $\times$\\
+      \multirow{-0.5}{\hsize}{Domain science methods
+      \textcolor{green!50!black}{$\blacksquare$}}
       & Mechanistic multiscale modeling
+      & \checkmark & $\times$ & $\times$\\
+      & Scientific parameter fitting
       & \checkmark & $\times$ & $\times$\\
       & Coupling AI, cloud, data science
       & \checkmark & $\times$ & \checkmark\\
       \midrule
-      \multirow{2}{\hsize}{Sysadmin}
+      \multirow{2}{\hsize}{Sysadmin
+      \textcolor{black!60}{$\blacksquare$}}
       & Cluster launch
       & \checkmark & $\times$ & \checkmark\\
       & Cluster profiling
@@ -377,139 +385,36 @@ table
   }
 
   \posterbox[
-  adjusted title = Modified Course Syllabus,
-  ]{
-    name = syl-modified,
-    column = 1,
-    below = syl-init,
-  }{%
-    \bigskip
-    \begin{minipage}[c]{.27\linewidth}
-      \textbf{Course topics.}
-          %
-          The topics covered in this course %
-          are organized into the categories of the %
-          \textcolor{red!80!black}{$\blacksquare$}~capstone project,
-          \textcolor{orange!90!black}{$\blacksquare$}~performance optimization, %
-          \textcolor{blue!80!black}{$\blacksquare$}~software development, %
-          \textcolor{green!50!black}{$\blacksquare$}~domain science methods, and %
-          \textcolor{black!60}{$\blacksquare$}~cluster administration.
-          %
-          Each leaf node more-or-less corresponds to %
-          a single week of semester classroom sessions.
-    \end{minipage}
-    %\hfill
-    \begin{minipage}[c]{.73\linewidth}
-      \begin{tikzpicture}[
-        root concept/.style={
-          text width = 120pt,
-        },
-        level 1 concept/.style={
-          text width = 80pt,
-          level distance = 180,
-        },
-        level 2 concept/.append style={
-          text width = 70pt,
-          level distance = 120,
-        },
-        every concept/.append style={
-          font = \scriptsize,
-        },
-        mindmap,
-        ]
-        \path
-        node [concept, concept color=black, text=white, name=node-concept]
-        {course topics}
-        child [grow=90, concept color=red!80!black, text=white] {
-          node [concept] {capstone}
-          [clockwise from=210]
-          child { node [concept] {present} }
-          child { node [concept] {write proposal} }
-          child { node [concept] {submit code} }
-          child { node [concept] {write abstract} }
-        }
-        child [grow=18, concept color=orange!90!black, text=white] {
-          node [concept] {performance optim.}
-          [clockwise from=90]
-          child { node [concept] {within node} }
-          child { node [concept] {multi node} }
-          child { node [concept] {GPU accel.} }
-          child { node [concept] {tuning} }
-        }
-        child [grow=306, concept color=blue!80!black, text=white] {
-          node [concept] {software dev.}
-          [clockwise from=0]
-          child { node [concept] {test, CI} }
-          child { node [concept] {debug, checkpoint} }
-          child { node [concept] {peer review, reproduce} }
-        }
-        child [grow=234, concept color=green!50!black, text=white] {
-          node [concept] {domain methods}
-          [clockwise from=285]
-          child { node [concept] {scientific param. optim.} }
-          child { node [concept] {mech. multiscale modeling} }
-          child { node [concept] {coupling AI,~cloud, data sci.} }
-        }
-        child [grow=162, concept color=black!60, text=white] {
-          node [concept] {cluster admin.}
-          [clockwise from=162]
-          child { node [concept] {launch, profile} }
-        };
-        \draw [%
-        very thick,
-        {Circle[length=0.5em]-Stealth[harpoon,length=1em]},
-        postaction={
-          decorate,
-          decoration={
-            text align={left},
-            raise={0.5em},
-            text along path,
-            text={Start}
-          }
-        },
-        postaction={
-          decorate,
-          decoration={
-            text align={right},
-            raise={0.5em},
-            text along path,
-            text={End}
-          }
-        }]
-        ([shift=(66:15em)]node-concept) arc (66:-275:15em);
-      \end{tikzpicture}
-    \end{minipage}
-  }
-
-  \posterbox[
   adjusted title = Mentors Suggestions,
   ]{
     name = sugg,
-    column = 2,
+    column = 1,
+    below = syl-init,
   }{%
   \begin{multicols}{2}
     \begin{enumerate}
+    \setlength{\itemsep}{0em}
     \item \ul{Added network communication exercises} %
       using the LAMMPS exercise developed at Temple University.
     \item \ul{Added profiling exercises} %
       from Cornell University %
       and the University of Michigan.
     \item \ul{Chose a checkpointing library} %
-      written in C/C++ %
+      written in C++ %
       both to teach in the course %
       and to recommend for student capstone projects.
-    \item Trainees will \ul{write C/C++ code using VS Code} %
+    \item Trainees will \ul{write C++ code using VS Code} %
       with SSH tunnels to JetStream2 virtual machines %
       with a fallback of OpenVSCode Server web interface %
       for classroom instruction.
-    \item \ul{Added an AI policy} %
-      that requires a bibliography %
+    \item \ul{Added AI policy} %
+      requiring a bibliography %
       citing AI service names with versions, prompts, and output.
     \item Moved non-capstone homework assignments to %
       \ul{classroom hands-on to avoid over-reliance on AI support} %
       while trainees are still developing expertise.
     \item \ul{Increased accessibility} %
-      to less experienced C/C++ programmers %
+      for non-C++ programmers %
       by recommending self-guided, open access textbooks %
       from \emph{The Art of HPC: Volume 3}.
     \item \ul{Added objective of numerical correctness} %
@@ -518,7 +423,7 @@ table
     \item The target audience is now \ul{graduate students} %
       with existing projects or pilot projects.
     \item \ul{Consolidated course topics} %
-      to allow for more focus on domain science methods %
+      to focus on domain science methods %
       in keeping with the course title.
     \end{enumerate}
   \end{multicols}
@@ -528,21 +433,21 @@ table
   adjusted title = Science Gateways Resources Used,
   ]{
     name = res,
-    column = 2,
+    column = 1,
     below = sugg,
   }{%
-  \begin{tikzpicture}[
-    every node/.style = {inner sep = 5pt},
-    ]
-    \node (ref) [minimum width = \linewidth] {};
-
-    \node (jetstream) at (ref.north west) [anchor = north west] {%
-      \includegraphics[width=.2\linewidth]{jetstream2-head-logo.pdf}};
-    \node (jetstream-text) at (jetstream.north east) [%
-    anchor = north west, text width = .78\linewidth] {%
-    \textbf{Non-virtual multi-GPU A100 nodes (g3.2xl)}
+  \begin{multicols}{2}
+    \begin{tikzpicture}
+      \node (text) %
+      [text width = .6\linewidth] {%
+        \textbf{Non-virtual multi-GPU A100 nodes (g3.2xl)}};
+      \node (logo) at (text.south east) %
+      [anchor = south west, minimum width = .4\linewidth] {%
+        \includegraphics[width=.4\linewidth]{jetstream2-head-logo.pdf}};
+    \end{tikzpicture}
+    \vspace{-1.5\baselineskip}
     \begin{itemize}
-    \setlength{\itemsep}{0em}
+    \setlength{\itemsep}{-.5em}
     \item Shared between small groups of 4 students.
     \item For early project development and exercises.
     \item A100 supports 64-bit floating point operations %
@@ -550,56 +455,188 @@ table
     \item Efficient multi-GPU use is a course objective.
     \item g3.2xl is the multi-GPU A100 with the most availability.
     \end{itemize}
-    };
 
-    \node (access) at (jetstream.west |- jetstream-text.south) [%
-    anchor = north west, yshift = -\baselineskip] {%
-      \includegraphics[width=.2\linewidth]{access-logo.pdf}};
-    \node (access-text) at (access.north east) [%
-    anchor = north west, text width = .78\linewidth] {%
-    \textbf{Bridges-2 GPU HPC Allocation}
+    \begin{tikzpicture}
+      \node (text) %
+      [text width = .6\linewidth] {%
+        \textbf{Bridges-2 GPU HPC allocation}};
+      \node (logo) at (text.south east) %
+      [anchor = south west, minimum width = .4\linewidth] {%
+        \includegraphics[width=.4\linewidth]{access-logo.pdf}};
+    \end{tikzpicture}
+    \vspace{-1.5\baselineskip}
     \begin{itemize}
-    \setlength{\itemsep}{0em}
+    \setlength{\itemsep}{-.5em}
     \item For cluster exercises and scaling.
     \item Interactive nodes with backfill scheduling and short walltime %
     for the classroom use.
-  \item Trainees are encouraged %
+    \item Trainees are encouraged %
     to apply for their own ACCESS CI allocations %
     to continue their work %
     after leaving the instructor's ACCESS CI group.
     \end{itemize}
-    };
 
-    \node (hpcc) at (access.west |- access-text.south) [%
-    anchor = north west, yshift = -\baselineskip] {%
-      \includegraphics[width=.2\linewidth]{hpc-carpentry.pdf}};
-    \node (hpcc-text) at (hpcc.north east) [%
-    anchor = north west, text width = .78\linewidth] {%
-    \textbf{HPC introduction and reproducible workflows}
+    \begin{tikzpicture}
+      \node (text) %
+      [text width = .6\linewidth] {%
+        \textbf{HPC introduction and reproducible workflows}};
+      \node (logo) at (text.south east) %
+      [anchor = south west, minimum width = .4\linewidth] {%
+        \includegraphics[width=.4\linewidth]{hpc-carpentry.pdf}};
+    \end{tikzpicture}
+    \vspace{-1.5\baselineskip}
     \begin{itemize}
-    \setlength{\itemsep}{0em}
+    \setlength{\itemsep}{-.5em}
     \item Self-paced introduction to key concepts of the  HPC environment.
     \item Supplementary reading for %
       capstone project reproducible workflows %
       for coupling AI, cloud, and data science tools.
     \end{itemize}
-    };
 
-    \node (gha) at (hpcc.west |- hpcc-text.south) [%
-    anchor = north west, yshift = -\baselineskip] {%
-      \includegraphics[width=.1\linewidth]{github-mark.pdf}%
-      \includegraphics[width=.1\linewidth]{actions-icon-actions.pdf}};
-    \node (gha-text) at (gha.north east) [%
-    anchor = north west, text width = .78\linewidth] {%
-    \textbf{Trainee GitHub repositories for assignments and capstone projects}
+    \begin{tikzpicture}
+      \node (text) %
+      [text width = .6\linewidth] {%
+        \textbf{%
+          Trainee GitHub repositories for assignments and capstone projects}};
+      \node (logo) at (text.south east) %
+      [anchor = south west, minimum width = .4\linewidth] {%
+        \includegraphics[width=.2\linewidth]{github-mark.pdf}
+        \includegraphics[width=.2\linewidth]{actions-icon-actions.pdf}
+      };
+    \end{tikzpicture}
+    \vspace{-1.5\baselineskip}
     \begin{itemize}
-      \setlength{\itemsep}{0em}
+    \setlength{\itemsep}{-.5em}
     \item Projects in private git repositories shared with the instructor.
     \item Assignments partially checked using GitHub actions.
     \item Progress on capstone projects will be monitored from git repositories.
     \end{itemize}
-    };
-  \end{tikzpicture}
+  \end{multicols}
+  }
+
+  \posterbox[
+  adjusted title = Modified Course Syllabus,
+  ]{
+    name = syl-modified,
+    column = 2,
+  }{%
+    The topics covered in this course %
+    are organized into the categories of the %
+    \textcolor{red!80!black}{$\blacksquare$}~capstone project,
+    \textcolor{orange!90!black}{$\blacksquare$}~performance optimization, %
+    \textcolor{blue!80!black}{$\blacksquare$}~software development, %
+    \textcolor{green!50!black}{$\blacksquare$}~domain science methods, and %
+    \textcolor{black!60}{$\blacksquare$}~cluster administration.
+    % 
+    Each item more-or-less corresponds to %
+    a single week of semester classroom sessions.
+    %
+    To accommodate delays from needing to spend extra time clarifying
+    critical topics taught earlier in the class, two class weeks can be
+    dropped and have been marked with ``(Time permitting)''.
+    \begin{multicols}{2}
+      \begin{itemize}
+      \item[\textcolor{red!80!black}{$\blacksquare$}] \textbf{Write
+          abstract:} begin a capstone project after completing the
+        performance optimization topics\\
+        \textbf{Assignment 0:} Write a half page proposal for a new or
+        existing compute-intensive mechanistic model to be accelerated
+        using GPU resources.%
+      \item[\textcolor{orange!90!black}{$\blacksquare$}]
+        \textbf{Within-node optimization:} strategies for within-node
+        vectorization, caching, memory bandwidth, and I/O\\
+        \textbf{Assignment 1:} Exercises vectorizing Python code,
+        inspecting C assembler CPU vectorized instructions, creating
+        roofline plots to inspect CPU-memory, hwloc to inspect memory
+        CPU hierarchy.%
+      \item[\textcolor{orange!90!black}{$\blacksquare$}]
+        \textbf{Multi-node scaling:} strategies for task distribution
+        and multi-node cluster scaling\\
+        \textbf{Assignment 2:} Exercises with C, TaskWorks, Spack,
+        MPI, and SLURM.%
+      \item[\textcolor{orange!90!black}{$\blacksquare$}] \textbf{GPU
+          acceleration:} introduction to data parallel programming for
+        GPUs\\
+        \textbf{Assignment 3:} Exercises with C++ Kokkos to fill in
+        the blanks of partially completed programs.\\
+        \textbf{Assignment 3-capstone:} Outline an informal list of
+        goals and objectives to create a minimum viable product of
+        your capstone code through the remainder of the semester.%
+      \item[\textcolor{orange!90!black}{$\blacksquare$}] \textbf{
+          Distributed performance tuning:} Introduction to distributed
+        performance tuning\\
+        \textbf{Assignment 4:} Exercises with Darashan, Drishti, and
+        HPCtoolkit\\
+        \textbf{Assignment 4-capstone:} Literature review of software
+        similar to yours and how you intend to make yours different.%
+      \item[\textcolor{blue!80!black}{$\blacksquare$}] \textbf{
+          Testing, CI, and benchmarking}: automated unit testing,
+        performance regression testing, test coverage, and continuous
+        integration\\
+        \textbf{Hands-On 5}: Exercises with pytest, Benchpark, and
+        GitLab CI.\@\\
+        \textbf{Assignment 5-capstone:} Start adding tests, coverage,
+        and CI to your capstone project.%
+      \item[\textcolor{blue!80!black}{$\blacksquare$}] \textbf{ Peer
+          review, usability, packaging:} practicing stress-free code
+        peer review, documentation, and packaging\\
+        \textbf{Hands-On 7:} Exercise with professor and pairing.\\
+        \textbf{Assignment 7-capstone:} Document, package with Spack
+        or Apptainer.%
+      \item[\textcolor{blue!80!black}{$\blacksquare$}] \textbf{
+          Parallel debugging and checkpointing:} introduction to
+        parallel
+        debugging, code correctness, and application checkpoints\\
+        \textbf{Hands-On 6:} MPIGDB debugging session, resuming from
+        checkpoint
+        to understand error, correctness with sanitizers.\@\\
+        \textbf{Assignment 6-capstone:} Start adding checkpointing to
+        your capstone project.%
+      \item[\textcolor{green!50!black}{$\blacksquare$}] \textbf{
+          Mechanistic, multiscale modeling:} simulations using an
+        agent-based, mechanistic, multiscale model\\
+        \textbf{Hands-On 8:} Analyze how model layers and linking are
+        implemented\supercite{cilfone_2015}.%
+      \item[\textcolor{green!50!black}{$\blacksquare$}] \textbf{
+          Parallel parameter fitting:} parallel parameter fitting
+        using gradient-free, pseudo-likelihood based sampling\\
+        \textbf{Hands-On 9:} Calibration our model from last time with
+        pyabc using adaptive sampling; discuss
+        checkpointing, debugging.\\
+        \textbf{Assignment 9-capstone:} Start coupling with scientific
+        parameter sampling.%
+      \item[\textcolor{green!50!black}{$\blacksquare$}] (Time
+        permitting) \textbf{Coupling AI, cloud, data science:}
+        Coupling HPC
+        paradigms with data science, AI, and cloud environments\\
+        Assignment 10: Summarize book\supercite{zbakh_2024} chapters 4
+        and 8 in 1 page.\\
+        \textbf{Assignment 10-capstone:} Assess possible extensions to
+        your capstone project using components of AI, big data, or
+        cloud applications and specialized hardware needs by
+        connecting the concepts from each of the two articles, your
+        domain science, and to what extent we discussed these concepts
+        so far in the class.%
+      \item[\textcolor{black!60}{$\blacksquare$}] (Time permitting)
+        \textbf{Cluster sysadmin and profiling:} cluster launch,
+        system
+        administration, and profiling\\
+        \textbf{Hands-On 11:} Setup VMs with network, shared disk, and
+        SLURM to launch and profile an ad-hoc, suboptimal cluster.%
+      \item[\textcolor{red!80!black}{$\blacksquare$}] \textbf{Final
+          presentations and code:} final presentations of capstone
+        projects\\
+        \textbf{Hands-On 12-capstone:} Walk though your project with
+        ACCESS-relevant details and future directions.\\
+        \textbf{Assignment 12-capstone:} Submit code for grading.%
+      \item[\textcolor{red!80!black}{$\blacksquare$}] \textbf{NSF
+          ACCESS proposal:} NSF ACCESS allocation request\\
+        \textbf{Assignment 13-capstone:} Write a 3-page ACCESS CI
+        Accelerate proposal with scaling studies and justification for
+        compute resources requested; trim actual Discover proposal to
+        1-page.%
+      \end{itemize}
+    \end{multicols}
   }
 
   \posterbox[
@@ -607,10 +644,11 @@ table
   ]{
     name = exp,
     column = 2,
-    below = res,
+    below = syl-modified,
   }{%
   \begin{multicols}{2}
     \begin{enumerate}
+    \setlength{\itemsep}{0em}
     \item Accommodate \ul{undergraduate students} %
       with more structure, %
       shorter exercises, %
@@ -630,6 +668,12 @@ table
     \item \ul{Compartmentalize topics %
       into the 2-day workshop format} %
       to be taught at the Pittsburgh Supercomputing Center (PSC).
+    \item Create \ul{HPC Carpentry lessons in C++ for data scientists}
+      to cover C++ concepts required to use GPU performance
+      portability libraries by comparing to concepts in Python and R
+      where possible, namely: variables, functions, data structures,
+      loops, classes (constructors, member variables, member
+      functions, member operators), debugging.
     \end{enumerate}
   \end{multicols}
   }
@@ -668,23 +712,23 @@ table
     trim={55 85 50 35}]{%
         pariksheet.png}};
 
-    \node (em) at (pn.south) [%
-    anchor = north,
-    yshift = -\baselineskip] {%
-    \includegraphics[%
-    keepaspectratio,
-    width=10em,
-    height=5em,
-    clip,
-    trim={20 80 60 5}]{%
-        elijah.jpg}};
-
-    \node at (pn.north east) [anchor = north west, xshift = 0.5em, align = left] {%
+    \node (pn-text) at (pn.north east) [anchor = north west, xshift = 0.5em, align = left] {%
       \textcolor{fh-blue}{\tikzmark{pn}Nanda, Pariksheet}\\
       Role: Faculty Participant\\
       University of Pittsburgh\\
       pan79@pitt.edu
     };
+
+    \node (em) at (pn-text.north east) [%
+    anchor = north west,
+    xshift = 1em] {%
+      \includegraphics[%
+      keepaspectratio,
+      width=10em,
+      height=5em,
+      clip,
+      trim={20 80 60 5}]{%
+        elijah.jpg}};
 
     \node at (em.north east) [anchor = north west, xshift = 0.5em, align = left] {%
       \textcolor{fh-blue}{\tikzmark{pn}MacCarthy, Elijah}\\
