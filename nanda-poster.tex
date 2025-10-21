@@ -104,7 +104,7 @@ includeheadfoot,
 \graphicspath{{img/}}
 
 \usepackage{multicol}
-\setlength\columnseprule{0pt}
+\setlength{\columnseprule}{0pt}
 \setlength{\columnsep}{2.5pc}
 
 \usepackage{tikz}
@@ -163,6 +163,7 @@ table
 \definecolor{fh-gold}{HTML}{F7E8C9}
 
 \usepackage{tcolorbox}
+\tcbuselibrary{poster}
 \newcommand{\sectionbox}[1]{%
   \begin{tcolorbox}[sharp corners,boxrule=0pt,top=15pt,colback=fh-blue,coltext=fh-gold]%
     \section*{#1\vphantom{Yy}}%
@@ -171,9 +172,34 @@ table
 
 \begin{document}
 
-\begin{multicols}{2}
+\noindent
+\begin{tcbposter}[
+  poster = {
+    rows = 1,
+    columns = 2,
+    height = \paperheight - 2cm - 2.47in - 1.59in,
+    width = \paperwidth - 1cm,
+    colspacing = 0.1in,
+    rowspacing = 0.1in,
+    %showframe,
+  },
+  boxes = {
+    fonttitle = \Large\bfseries,
+    coltitle = fh-gold,
+    colbacktitle = fh-blue,
+    colback = white,
+    colframe = white,
+    sharp corners,
+    boxrule = 0pt,
+  },
+  ]
 
-  \sectionbox{Introduction}%
+  \posterbox[
+  adjusted title = Introduction,
+  ]{
+    name = intro,
+    column = 1,
+  }{%
   \noindent
   Graphical Processing Units (GPUs) %
   are integrated into the core architecture %
@@ -232,7 +258,6 @@ table
     but stopped submitting data to the Top 500 List %
     after US GPU embargoes.
   \end{minipage}
-  \vspace{\baselineskip}
 
   \subsection*{\textcolor{fh-blue}{Target Course Description}}
 
@@ -267,16 +292,25 @@ table
     \end{tabularx}
   }
 
+  \vspace{-.5\baselineskip}
   \subsection*{\textcolor{fh-blue}{Goals}}
   \begin{itemize}
+  \setlength{\itemsep}{0em}
   \item Setup student \ul{JetStream2 VM} for homework and capstone projects.
   \item Add students to my \ul{ACCESS group} for cluster runs and %
     help them get their own ACCESS allocation.
   \item Teach all C++ classroom exercises inside a \ul{web IDE}. 
   \item Train students to \ul{package their project}.
   \end{itemize}
+  }
 
-  \sectionbox{Initial Course Syllabus}%
+  \posterbox[
+  adjusted title = Initial Course Syllabus,
+  ]{
+    name = syl-init,
+    column = 1,
+    below = intro,
+  }{%
   \noindent
     \textbf{High-level comparison of topics.}
         %
@@ -339,12 +373,16 @@ table
       & \checkmark & $\times$ & \checkmark\\
       & Cluster profiling
       & \checkmark & \checkmark & \checkmark\\
-      \bottomrule
     \end{tabularx}
-    \bigskip
+  }
 
-  \sectionbox{Modified Course Syllabus}
-
+  \posterbox[
+  adjusted title = Modified Course Syllabus,
+  ]{
+    name = syl-modified,
+    column = 1,
+    below = syl-init,
+  }{%
     \bigskip
     \begin{minipage}[c]{.27\linewidth}
       \textbf{Course topics.}
@@ -363,7 +401,6 @@ table
     %\hfill
     \begin{minipage}[c]{.73\linewidth}
       \begin{tikzpicture}[
-        scale = 0.95,
         root concept/.style={
           text width = 120pt,
         },
@@ -442,8 +479,14 @@ table
         ([shift=(66:15em)]node-concept) arc (66:-275:15em);
       \end{tikzpicture}
     \end{minipage}
+  }
 
-  \sectionbox{Mentors Suggestions}%
+  \posterbox[
+  adjusted title = Mentors Suggestions,
+  ]{
+    name = sugg,
+    column = 2,
+  }{%
   \begin{multicols}{2}
     \begin{enumerate}
     \item \ul{Added network communication exercises} %
@@ -479,9 +522,18 @@ table
       in keeping with the course title.
     \end{enumerate}
   \end{multicols}
+  }
 
-  \sectionbox{Science Gateways Resources Used}%
-  \begin{tikzpicture}
+  \posterbox[
+  adjusted title = Science Gateways Resources Used,
+  ]{
+    name = res,
+    column = 2,
+    below = sugg,
+  }{%
+  \begin{tikzpicture}[
+    every node/.style = {inner sep = 5pt},
+    ]
     \node (ref) [minimum width = \linewidth] {};
 
     \node (jetstream) at (ref.north west) [anchor = north west] {%
@@ -490,6 +542,7 @@ table
     anchor = north west, text width = .78\linewidth] {%
     \textbf{Non-virtual multi-GPU A100 nodes (g3.2xl)}
     \begin{itemize}
+    \setlength{\itemsep}{0em}
     \item Shared between small groups of 4 students.
     \item For early project development and exercises.
     \item A100 supports 64-bit floating point operations %
@@ -506,6 +559,7 @@ table
     anchor = north west, text width = .78\linewidth] {%
     \textbf{Bridges-2 GPU HPC Allocation}
     \begin{itemize}
+    \setlength{\itemsep}{0em}
     \item For cluster exercises and scaling.
     \item Interactive nodes with backfill scheduling and short walltime %
     for the classroom use.
@@ -523,6 +577,7 @@ table
     anchor = north west, text width = .78\linewidth] {%
     \textbf{HPC introduction and reproducible workflows}
     \begin{itemize}
+    \setlength{\itemsep}{0em}
     \item Self-paced introduction to key concepts of the  HPC environment.
     \item Supplementary reading for %
       capstone project reproducible workflows %
@@ -538,14 +593,22 @@ table
     anchor = north west, text width = .78\linewidth] {%
     \textbf{Trainee GitHub repositories for assignments and capstone projects}
     \begin{itemize}
+      \setlength{\itemsep}{0em}
     \item Projects in private git repositories shared with the instructor.
     \item Assignments partially checked using GitHub actions.
     \item Progress on capstone projects will be monitored from git repositories.
     \end{itemize}
     };
   \end{tikzpicture}
+  }
 
-  \sectionbox{Expansions}%
+  \posterbox[
+  adjusted title = Expansions,
+  ]{
+    name = exp,
+    column = 2,
+    below = res,
+  }{%
   \begin{multicols}{2}
     \begin{enumerate}
     \item Accommodate \ul{undergraduate students} %
@@ -569,8 +632,15 @@ table
       to be taught at the Pittsburgh Supercomputing Center (PSC).
     \end{enumerate}
   \end{multicols}
+  }
 
-  \sectionbox{References}
+  \posterbox[
+  adjusted title = References,
+  ]{
+    name = references,
+    column = 2,
+    below = exp,
+  }{%
   {
     % Recalculate \columnsep instead of using the large \columnsep
     % from the main document.
@@ -579,34 +649,17 @@ table
       \printbibliography[heading=none]{}
     \end{multicols}
   }
-
-  \sectionbox{Authors}%
-  {
-    \setlength{\parindent}{5em}
-
-    \textbf{\textcolor{fh-blue}{\tikzmark{pn}Nanda, Pariksheet}}
-
-    Role: Faculty Participant
-
-    University of Pittsburgh
-
-    pan79@pitt.edu
-    \vspace{\baselineskip}
-
-    \textbf{\textcolor{fh-blue}{\tikzmark{em}MacCarthy, Elijah}}
-
-    Role: Community Mentor
-
-    Oak Ridge National Laboratory
-
-    maccarthyea@ornl.gov
   }
-  \begin{tikzpicture}[%
-    remember picture,
-    overlay]
-    \node at (pic cs:pn) [%
-    anchor = north east,
-    yshift = \baselineskip] {%
+
+  \posterbox[
+  adjusted title = Authors,
+  ]{
+    name = authors,
+    column = 2,
+    below = references,
+  }{%
+  \begin{tikzpicture}
+    \node (pn) {%
     \includegraphics[%
     keepaspectratio,
     width=10em,
@@ -615,9 +668,9 @@ table
     trim={55 85 50 35}]{%
         pariksheet.png}};
 
-    \node at (pic cs:em) [%
-    anchor = north east,
-    yshift = \baselineskip] {%
+    \node (em) at (pn.south) [%
+    anchor = north,
+    yshift = -\baselineskip] {%
     \includegraphics[%
     keepaspectratio,
     width=10em,
@@ -625,8 +678,23 @@ table
     clip,
     trim={20 80 60 5}]{%
         elijah.jpg}};
-  \end{tikzpicture}
 
-\end{multicols}
+    \node at (pn.north east) [anchor = north west, xshift = 0.5em, align = left] {%
+      \textcolor{fh-blue}{\tikzmark{pn}Nanda, Pariksheet}\\
+      Role: Faculty Participant\\
+      University of Pittsburgh\\
+      pan79@pitt.edu
+    };
+
+    \node at (em.north east) [anchor = north west, xshift = 0.5em, align = left] {%
+      \textcolor{fh-blue}{\tikzmark{pn}MacCarthy, Elijah}\\
+      Role: Community Mentor\\
+      Oak Ridge National Laboratory\\
+      maccarthyea@ornl.gov
+    };
+  \end{tikzpicture}
+  }
+
+\end{tcbposter}
 
 \end{document}
