@@ -1,48 +1,37 @@
 \documentclass{article}
-% \usepackage{anyfontsize}
-\usepackage{a0size}             % For arbitrary sized font.
+\usepackage{lmodern}            % Smoothly scaling font.
+\usepackage[                    % Set the default font size.
+fontsize=24,
+]{fontsize}
 \renewcommand{\familydefault}{\sfdefault}
-\renewcommand{\tiny}{\fontsize{12}{14}\selectfont}
-\renewcommand{\scriptsize}{\fontsize{14.4}{18}\selectfont}
-\renewcommand{\footnotesize}{\fontsize{17.28}{22}\selectfont}
-\renewcommand{\small}{\fontsize{20.74}{25}\selectfont}
-\renewcommand{\normalsize}{\fontsize{24.88}{30}\selectfont}
-\renewcommand{\large}{\fontsize{29.86}{37}\selectfont}
-\renewcommand{\Large}{\fontsize{35.83}{45}\selectfont}
-\renewcommand{\LARGE}{\fontsize{43}{54}\selectfont}
-\renewcommand{\huge}{\fontsize{51.6}{64}\selectfont}
-\renewcommand{\Huge}{\fontsize{61.92}{77}\selectfont}
-\newcommand{\veryHuge}{\fontsize{74.3}{93}\selectfont}
-\newcommand{\VeryHuge}{\fontsize{89.16}{212}\selectfont}
-\newcommand{\VERYHuge}{\fontsize{107}{134}\selectfont}
 \usepackage[
+% - HP DesignJet Z5200 printer in the Chemical Engineering department
+%   has a 44" roll width (1118 mm).
+% - The FacultyHack @ Science Gateways 2025 conference allows 30"x45"
+% - Therefore, crop the poster to 44in height i.e. 30"x44"
 paperwidth=30in,
-paperheight=45in,
+paperheight=44in,
 margin=0.5cm,
-head=2.66685in,
-foot=1.78685in,
-includehead,
-includefoot,
-%showframe
+head=2.47in,
+foot=1.59in,
+includeheadfoot,
+%showframe,
 ]{geometry}
 \usepackage{fancyhdr}
 \title{GPUs for massively parallel mechanistic modeling}
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
-\setlength{\headheight}{2.66685in} % 2.47in + 0.5cm
 \fancyhead[L]{%
   \begin{tikzpicture}[%
     background rectangle/.style = {
       fill = fh-blue,
-      inner sep = 0pt,
     },
     show background rectangle,
     tight background,
     scale = 1]
     \node (ref) [
-    inner sep = 0,
-    minimum width = 30in - 1cm,
+    minimum width = \paperwidth - 1cm,
     minimum height = 2.47in] {};
     \node at (ref.north west) [anchor = north west, name = fh] {%
       \includegraphics[height=2.47in]{fh.png}};
@@ -50,25 +39,28 @@ includefoot,
     anchor = south east, %
     name = nsf-text,
     text = fh-gold,
-    scale = 1.7,
+    scale = 0.5,
+    inner sep = 6pt,
     text width = width("under award number 2231406"),
     align = center] {%
       SGX3 is funded by the \mbox{National Science Foundation} %
       under award number 2231406};
-    \path let \p1 = (ref.north), \p2 = (nsf-text.north), \n1 = {\y1 - \y2} in
-    node at (nsf-text.north) [anchor = south, name = nsf] {%
+    \path let
+    \p1 = (ref.north),
+    \p2 = (nsf-text.north),
+    \n1 = {(\y1 - \y2) - 4pt} in
+    node at (nsf-text.north) [anchor = south, name = nsf, yshift = -2pt] {%
       \includegraphics[height=\n1]{nsf.png}};
     \node at (fh.east) [%
     anchor = west,
     text = fh-gold,
-    scale = 7,
+    scale = 3,
     text width = width("GPUs for massively parallel")] {%
       GPUs for massively parallel mechanistic modeling%
     };
   \end{tikzpicture}%
 }
 \fancyhead[C,R]{}
-\setlength{\footskip}{1.78685in} % 1.59in + 0.5cm
 \fancyfoot[L]{%
   \begin{tikzpicture}[%
     background rectangle/.style = {
@@ -95,7 +87,7 @@ includefoot,
       \includegraphics[height=0.87in]{tacc.png}};
     \node (qr-code) at (ref.east) [anchor = east, outer sep = 0.25cm] {%
       \includegraphics[height=1.32in]{qr-code.png}};
-    \node at (qr-code.west) [anchor = east, text = fh-gold, scale = 3.5] {%
+    \node at (qr-code.west) [anchor = east, text = fh-gold, scale = 1.6] {%
       \textbf{Event Site:} %
       \url{https://hackhpc.github.io/facultyhack-gateways25}
       };
@@ -116,6 +108,13 @@ includefoot,
 \setlength{\columnsep}{2.5pc}
 
 \usepackage{tikz}
+\usepackage{tikz}
+\tikzset{
+  every node/.style = {
+    inner sep = 0pt,
+    outer sep = 0pt
+  }
+}
 \usetikzlibrary{
 arrows.meta,
 backgrounds,
@@ -160,7 +159,7 @@ table
 ]{xcolor}
 \definecolor{fh-blue-lighter}{HTML}{EBEFF7}
 \definecolor{fh-blue-darker}{HTML}{D4DEED}
-\definecolor{fh-blue}{HTML}{005698}
+\definecolor{fh-blue}{RGB}{0,89,157}
 \definecolor{fh-gold}{HTML}{F7E8C9}
 
 \usepackage{tcolorbox}
@@ -188,8 +187,9 @@ table
   recently finished modernizing %
   the underlying scientific numerical software %
   to efficiently use this new generation of machines.
-  \medskip
+  \smallskip
 
+  \noindent
   Computing facilities grant access at no cost %
   to these GPU-accelerated%
   \supercite{%
@@ -207,19 +207,20 @@ table
   appropriate domain science methods, and %
   sustainable software practices %
   to enable large scale, GPU-centric computational research.
-  \medskip
+  \smallskip
 
+  \noindent
   Discussion and feedback on this poster from the community %
   can help make this course a success and %
   support similar hands-on learning and teaching endeavors.
-  \medskip
+  \smallskip
 
   \noindent
   \begin{minipage}[c]{.36\linewidth}
     \includegraphics[width=\linewidth]{1920x1080-Aurora hero image.jpg}
   \end{minipage}
   \begin{minipage}[c]{.62\linewidth}
-    \textbf{Modern exascale computers use GPU architectures.}
+    \textbf{Modern supercomputers use GPU architectures.}
     %
     Left photo is the Aurora supercomputer at Argonne National Laboratory %
     that is ranked 3\textsuperscript{rd} in the Top 500 List of June 2025 %
@@ -362,6 +363,7 @@ table
     %\hfill
     \begin{minipage}[c]{.73\linewidth}
       \begin{tikzpicture}[
+        scale = 0.95,
         root concept/.style={
           text width = 120pt,
         },
