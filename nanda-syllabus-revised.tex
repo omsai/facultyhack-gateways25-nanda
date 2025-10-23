@@ -57,7 +57,7 @@ citestyle=numeric-comp
 % Bibliography text size.
 \renewcommand*{\bibfont}{\footnotesize}
 \usepackage{tabularx}           % Table with X variable width wrapping column.
-\usepackage{supertabular}       % Table that breaks across pages.
+\usepackage{xtab}               % Table that breaks across pages.
 \usepackage{booktabs}           % {top,mid,bottom}rule
 \usepackage[table]{xcolor}      % \rowcolor
 \usepackage{callouts-box}
@@ -77,6 +77,7 @@ citestyle=numeric-comp
 \usepackage{clipboard}
 \usepackage{tikz}
 \usetikzlibrary{mindmap}
+\usepackage[perpage]{footmisc}  % tlmgr install bigfoot
 
 \begin{document}
 
@@ -389,7 +390,7 @@ Broadly speaking, the schedule is divided into two halves:
 \setbox0=\hbox{4444-44-44}
 \widthdate=\wd0
 \noindent
-\begin{mpsupertabular}{%
+\begin{mpxtabular}{%
     % Dimensions from https://tex.stackexchange.com/a/62718
   p{\dimexpr \widthdate} | %
   p{\dimexpr .695\linewidth-3\tabcolsep-.5\widthdate} | %
@@ -409,9 +410,22 @@ Broadly speaking, the schedule is divided into two halves:
     hwloc to inspect memory CPU hierarchy.
 
     \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-node}-capstone: %
+    Write a half-page proposal for a new or existing %
+    compute-intensive mechanistic model to be accelerated %
+    using GPU resources.
+
+    \vspace{.5\baselineskip}
     Goal \labelcref{a-node}: %
     Learn how to check and write code for efficient low-level execution; %
     practice submitting assignments using Git.
+
+    \vspace{.5\baselineskip}
+    Goal \labelcref{a-node}-capstone: %
+    Learn how to succinctly communicate your expectation %
+    of how computational efficiency may benefit your domain science; %
+    there is no need to cite similar efforts---%
+    that will be covered by Assignment~\labelcref{a-tune}-capstone.
   & ---\\
   \DTMdate{2026-01-21}
   & \textbf{Topic~\labelcls{a-clust}: %
@@ -419,14 +433,16 @@ Broadly speaking, the schedule is divided into two halves:
 
     \vspace{.5\baselineskip}
     Assignment~\labelcref{a-clust}: %
-    Exercises with C, TaskWorks\footnote{%
-    \url{https://github.com/hpc-io/taskworks}}, %
+    Exercises with C, TaskWorks, %
+    % https://github.com/hpc-io/taskworks
     Spack, MPI, and SLURM.\@
 
     \vspace{.5\baselineskip}
     Goal~\labelcref{a-clust}: Accommodate blocking operations (e.g. I/O) %
     using batching and threading.
-  & \Cref{a-node}\\
+  & \Cref{a-node},
+
+  \Cref{a-node}-capstone\\
   \rowcolor{gray!20}
   \DTMusedate{class-drop}
   & \multicolumn{2}{l}{Deadline for advanced undergraduates %
@@ -439,32 +455,151 @@ Broadly speaking, the schedule is divided into two halves:
 
     \vspace{.5\baselineskip}
     Assignment~\labelcref{a-gpu}: %
-    Exercises with C++ SYCL and Kokkos %
+    Exercises with C++ Kokkos %
     to fill in the blanks of partially completed programs.
 
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-gpu}: Implement algorithms %
+    using heterogeneous computing frameworks.
+
+    \vspace{.5\baselineskip}
     Assignment~\labelcref{a-gpu}-capstone: %
     Outline an informal bullet list of goals and objectives %
     to create a minimum viable product of your scientific code %
     through the remainder of the semester.
 
     \vspace{.5\baselineskip}
-    Goal~\labelcref{a-gpu}: Implement algorithms %
-    using heterogeneous computing frameworks.
-
-    Goal 3-capstone: %
+    Goal~\labelcref{a-gpu}-capstone: %
     You now have sufficient background %
     to begin planning your capstone assignment.
   & \Cref{a-clust}\\
   \DTMdate{2026-02-04}
-  & \textbf{Topic~\labelcls{a-fit}: Gradient based and %
-    pseudo-likelihood based %
-    parallel parameter fitting}.
+  & \textbf{Topic~\labelcls{a-tune}: %
+    Introduction to distributed performance tuning}.
 
     \vspace{.5\baselineskip}
-    Assignment~\labelcref{a-fit}: Exercises with %
-    distributed gradient-based parameter fitting, and %
-    pyABC ABC-SMC.\@
+    Assignment~\labelcref{a-tune}: Exercises with Darashan, Drishti, and %
+    % https://github.com/hpc-io/drishti-io
+    HPCtoolkit
 
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-tune}: Synthesize previous concepts from Topics 1--3 %
+    to critically assess and improve program performance.
+
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-tune}-capstone: %
+    Literature review of software similar to yours %
+    and how you intend to make yours different.
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-tune}-capstone: %
+    You will revisit distributed performance tuning as needed %
+    during the remainder of the semester; %
+    instead focus your efforts into why makes your project unique %
+    by reviewing prior art.
+  & \Cref{a-gpu},
+
+  \Cref{a-gpu}-capstone\\
+  \DTMdate{2026-02-11}
+  & \textbf{Topic~\labelcls{a-test}: %
+    Automated unit testing, test coverage, performance regression testing, %
+    and continuous integration}.
+
+    \vspace{.5\baselineskip}
+    Hands-On~\labelcref{a-test}: Exercises with %
+    pytest, Benchpark, and GitLab CI.
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-test}: Analyze code correctness, %
+    including performance correctness.%
+
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-test}-capstone: Start adding tests, %
+    coverage, and CI to your capstone project.
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-test}-capstone: %
+    Apply your domain knowledge %
+    to appropriately test your code and performance correctness.
+  & \Cref{a-tune},
+
+  \Cref{a-tune}-capstone\\
+  \DTMdate{2026-02-18}
+  & \textbf{Topic~\labelcls{a-rev}: %
+    Practicing stress-free peer review of code, %
+    documenting, and packaging for wider use.}.
+
+    \vspace{.5\baselineskip}
+    Hands-On~\labelcref{a-rev}: Exercises with professor and peer pairing.
+    %
+    Analyze how projects are documented at various levels: %
+    code comments, user guides with equations, and README files.
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-rev}: Gain experience working through checklists %
+    to provide constructive code criticism.
+    
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-rev}-capstone: Document your project, %
+    package with Spack or Apptainer; %
+    while the lecture covered the theory of packaging, %
+    the professor will assign you unique %
+    documentation and packaging goals for your project.
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-rev}-capstone: Enhance the usability of your %
+    project with various types of documentation %
+    and packaging for simpler installation.
+  & \Cref{a-test}-capstone\\
+  \DTMdate{2026-02-25}
+  & \textbf{Topic~\labelcls{a-ckpt-dbg}: Checkpointing and parallel debugging}.
+
+    \vspace{.5\baselineskip}
+    Hands-On~\labelcref{a-ckpt-dbg}: MPIGDB debugging session, %
+    resuming from a checkpoint to understand an error, %
+    inspecting correctness with sanitizers.
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-ckpt-dbg}: Develop a mental model %
+    of the additional complexities %
+    of debugging and sanitizing parallel programs.
+
+    \vspace{.5\baselineskip}
+    Assignment~\labelcref{a-ckpt-dbg}-capstone: Start adding %
+    checkpointing to your capstone project.
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-ckpt-dbg}-capstone: Adapt your project %
+    to be resilient to %
+    hardware failures, cluster walltimes, and runtime errors.
+  & \Cref{a-rev}-capstone\\
+  \DTMdate{2026-03-04}
+  & \textbf{Topic~\labelcls{a-msm}: Mechanistic, multiscale modeling}.
+
+    \vspace{.5\baselineskip}
+    Hands-On~\labelcref{a-msm}: Build and inspect how model layers and %
+    linking are implemented %
+    from a toy agent-based, mechanistic, multiscale model.
+  & \Cref{a-ckpt-dbg}-capstone\\
+  \rowcolor{gray!20}
+  \multicolumn{3}{c}{Enjoy your spring break! %
+  No assignments and no classes %
+  \DTMusedate{break-begin} through %
+  \DTMusedate{break-end}.}\\
+  \DTMdate{2026-03-18}
+  & \textbf{Topic~\labelcls{a-fit}: Parallel parameter fitting}.
+
+    \vspace{.5\baselineskip}
+    Hands-On~\labelcref{a-fit}: Exercises with %
+    distributed gradient-based parameter fitting, and %
+    pyABC ABC-SMC using the toy agent-based model from the previous lecture.
+
+    \vspace{.5\baselineskip}
+    Goal~\labelcref{a-fit}: Apply statistical summaries %
+    to match solver outputs with datasets %
+    using gradient-based and gradient-free sampling techniques.
+
+    \vspace{.5\baselineskip}
     Assignment~\labelcref{a-fit}-capstone: %
     Import your datasets and %
     choose a gradient-based or gradient-free method %
@@ -472,85 +607,9 @@ Broadly speaking, the schedule is divided into two halves:
     that best match your datasets.
 
     \vspace{.5\baselineskip}
-    Goal~\labelcref{a-fit}: Apply statistical summaries %
-    to match solver outputs with datasets %
-    using gradient-based and gradient-free sampling techniques.
-
     Goal~\labelcref{a-fit}-capstone: %
     Apply your domain knowledge %
     to appropriately match your datasets to your solver outputs.
-  & \Cref{a-gpu},
-
-    \Cref{a-gpu}-capstone\\
-  \DTMdate{2026-02-11}
-  & \textbf{Topic~\labelcls{a-tune}: %
-    Introduction to distributed performance tuning}.
-
-    \vspace{.5\baselineskip}
-    Assignment~\labelcref{a-tune}: Exercises with Darashan, Drishti\footnote{%
-    \url{https://github.com/hpc-io/drishti-io}}, and %
-    HPCtoolkit
-
-    Assignment~\labelcref{a-tune}-capstone: %
-    Literature review of software similar to yours %
-    and how you intend to make yours different.
-
-    \vspace{.5\baselineskip}
-    Goal~\labelcref{a-tune}: Synthesize previous concepts from Topics 1--3 %
-    to critically assess and improve program performance.
-
-    Goal~\labelcref{a-tune}-capstone: %
-    You will revisit distributed performance tuning as needed %
-    during the remainder of the semester; %
-    instead focus your efforts into why makes your project unique %
-    by reviewing prior art.
-  & \Cref{a-fit},
-
-  \Cref{a-fit}-capstone\\
-  \DTMdate{2026-02-18}
-  & \textbf{Topic~\labelcls{a-test}: %
-    Automated unit testing, performance regression testing, and test coverage}.
-
-    \vspace{.5\baselineskip}
-    Assignment~\labelcref{a-test}: Exercise with professor and pairing
-
-    \vspace{.5\baselineskip}
-    Goal~\labelcref{a-test}: [\ldots]
-  & \Cref{a-tune},
-
-  \Cref{a-tune}-capstone\\
-  \DTMdate{2026-02-25}
-  & \textbf{Topic~\labelcls{a-rev}: %
-    Practicing stress-free peer review of code and %
-    writing various types of documentation}.
-
-    \vspace{.5\baselineskip}
-    Assignment~\labelcref{a-rev}: Exercise with professor and pairing
-
-    \vspace{.5\baselineskip}
-    Goal~\labelcref{a-rev}: [\ldots]
-  & \Cref{a-test},
-
-  \Cref{a-test}-capstone\\
-  \DTMdate{2026-03-04}
-  & \textbf{Topic~\labelcls{a-next}: Continuous integration systems, %
-    git hooks, etc.\@ for testing and documentation}.
-  & \Cref{a-rev},
-
-  \Cref{a-rev}-capstone\\
-  \rowcolor{gray!20}
-  \multicolumn{3}{c}{Enjoy your spring break! %
-  No assignments and no classes %
-  \DTMusedate{break-begin} through %
-  \DTMusedate{break-end}.}\\
-  \DTMdate{2026-03-18}
-  & \textbf{Topic~\labelcls{a-ckpt-dbg}: Checkpointing and parallel debugging}.
-
-    \vspace{.5\baselineskip}
-    Assignment~\labelcref{a-ckpt-dbg}: [\ldots]
-
-    \vspace{.5\baselineskip}
-    Goal~\labelcref{a-ckpt-dbg}: [\ldots]
   & ---\\
   \DTMdate{2026-03-25}
   & \textbf{Topic~\labelcls{a-beyond-hpc}: Coupling HPC paradigms %
@@ -562,7 +621,10 @@ Broadly speaking, the schedule is divided into two halves:
     in no more than a single page.
 
     \vspace{.5\baselineskip}
-    Goal~\labelcref{a-beyond-hpc}: [\ldots]
+    Goal~\labelcref{a-beyond-hpc}: Critique %
+    the interoperability and robustness of systems %
+    used in different computing environments %
+    with their own infrastructure, toolchains, and libraries.
 
     \vspace{.5\baselineskip}
     Assignment~\labelcref{a-beyond-hpc}-capstone: %
@@ -571,34 +633,34 @@ Broadly speaking, the schedule is divided into two halves:
     and specialized hardware needs %
     by connecting the concepts from each of the two articles, %
     your domain science, and %
-    to what extent we discussed these concepts so far in the class.
+    to what extent we discussed these concepts so far in the lectures.
 
     \vspace{.5\baselineskip}
-    Goal~\labelcref{a-beyond-hpc}-capstone: [\ldots]
-  & \Cref{a-ckpt-dbg},
-
-  \Cref{a-ckpt-dbg}-capstone\\
+    Goal~\labelcref{a-beyond-hpc}-capstone: Design interoperable and robust %
+    systems that balance high performance with flexibility %
+    to run in different environments %
+    and interoperate with complementary tools.
+  & \Cref{a-fit}-capstone\\
   \DTMdate{2026-04-01}
-  & \textbf{Topic~\labelcls{a-self-host}: Collaboratively launch %
-    your own HPC cluster}.
+  & \textbf{Topic~\labelcls{a-self-host}: Collaboratively launch, %
+    troubleshoot, and benchmark your own HPC cluster}.
 
     \vspace{.5\baselineskip}
-    Assignment~\labelcref{a-self-host}: [\ldots]
+    Hands-On~\labelcref{a-self-host}: Setup VMs with %
+    network, shared disk, and SLURM %
+    to launch and profile an ad-hoc, suboptimal cluster.
+    %
+    Benchmark the performance of a scientific application against %
+    a professionally architected and tuned cluster.
 
     \vspace{.5\baselineskip}
-    Goal~\labelcref{a-self-host}: [\ldots]
-
-    \vspace{.5\baselineskip}
-    Assignment~\labelcref{a-self-host}-capstone: [\ldots]
-
-    \vspace{.5\baselineskip}
-    Goal~\labelcref{a-self-host}-capstone: [\ldots]
-  & \Cref{a-beyond-hpc},
-
-  \Cref{a-beyond-hpc}-capstone\\
-  \DTMdate{2026-04-08}
-  & \textbf{Topic~\labelcls{a-self-bench}: Benchmark and troubleshoot %
-    your HPC cluster}.
+    Goal~\labelcref{a-self-host}: Improve bug and issue reports by %
+    understanding Linux systemd daemons, %
+    services, logging, permissions, configuration, network communication, and %
+    journals / logging; %
+    help your users help you narrow down the scope of any issue they find, %
+    including relevant diagnostic information from a cluster environment %
+    with a troubleshooting section to your application or issue template.
 
     \vspace{.5\baselineskip}
     Assignment~\labelcref{a-pres-1}-capstone (group 1) %
@@ -615,10 +677,10 @@ Broadly speaking, the schedule is divided into two halves:
     \Copy{goal-last-presentation}{%
     Self-assess progress and %
     prepare preliminary data for grant application.}
-  & \Cref{a-self-host},
+  & \Cref{a-beyond-hpc},
 
-  \Cref{a-self-host}-capstone\\
-  \DTMdate{2026-04-15}
+  \Cref{a-beyond-hpc}-capstone\\
+  \DTMdate{2026-04-08}
   & \textbf{Topic~\labelcls{a-pres-1}: Presentations of capstone project %
     (group 1)}.
 
@@ -652,7 +714,7 @@ Broadly speaking, the schedule is divided into two halves:
     Goal~\labelcref{a-pres-2}-capstone (group 2): %
     \Paste{goal-last-presentation}
   & \Cref{a-pres-1}-capstone (group 1) \\
-  \DTMdate{2026-04-22}
+  \DTMdate{2026-04-15}
   & \textbf{Topic~\labelcls{a-pres-2}: Presentations of capstone project %
     (group 2)}.
 
@@ -663,6 +725,19 @@ Broadly speaking, the schedule is divided into two halves:
     Goal Last-capstone (group 2): %
     \Paste{goal-last-submit}
   & \Cref{a-pres-2}-capstone (group 2) \\
+  \DTMdate{2026-04-22}
+  & \textbf{Topic~\labelcls{a-write}: Open discussion of written allocation or grant proposal}.
+
+    Hands-On~Last-capstone: Begin writing your 3-page %
+    ACCESS CI Accelerate proposal %
+    with scaling studies and justification for compute resources requested; %
+    trim actual Discover proposal to 1-page.
+
+    \vspace{.5\baselineskip}
+    Goal Last-capstone: %
+    Develop writing and communication skills %
+    that synthesize capstone work and concepts learned from the class.
+  & --- \\
   \DTMusedate{exam-end-ug}
   & \textbf{Deadline to turn in capstone project with grant application.}
   & Capstone project code and %
@@ -671,12 +746,12 @@ Broadly speaking, the schedule is divided into two halves:
   \rowcolor{gray!20}
   \DTMusedate{grades-due}
   & \multicolumn{2}{l}{Grades due.} \\
-\end{mpsupertabular}
+\end{mpxtabular}
 
 \begin{notebox}
   The sections below contain language provided by the university.
   %
-  Inapplicable text for this course is formatted with strike-through marks %
+  Any inapplicable text for this course is formatted with strike-through marks %
   with explanatory footnotes.
 \end{notebox}
 
