@@ -76,7 +76,13 @@ citestyle=numeric-comp
 \DTMsavedate{grades-due}{2026-05-05}
 \usepackage{clipboard}
 \usepackage{tikz}
-\usetikzlibrary{mindmap}
+\usetikzlibrary{
+  arrows.meta,
+  decorations.markings,
+  decorations.pathmorphing,
+  decorations.text,
+  mindmap,
+}
 \usepackage[perpage]{footmisc}  % tlmgr install bigfoot
 
 \begin{document}
@@ -309,46 +315,77 @@ cluster administration:
 
 \begin{tikzpicture}[
   root concept/.style={
-    minimum size=3cm,
-  }
+    text width = 90pt,
+  },
+  level 1 concept/.style={
+    text width = 50pt,
+    level distance = 110,
+  },
+  level 2 concept/.append style={
+    level distance = 80,
+  },
+  mindmap,
   ]
-  \path [mindmap]
-  node [concept, concept color=black, text=white] {course}
+  \path
+  node [concept, concept color=black, text=white, name=node-concept]
+  {course topics}
   child [grow=90, concept color=red!80!black, text=white] {
     node [concept] {capstone}
     [clockwise from=150]
-    child { node [concept] {present} }
-    child { node [concept] {write proposal} }
-    child { node [concept] {submit code} }
+    child { node [concept] {1. write abstract} }
+    child { node [concept, name=node-proposal] {14. write proposal} }
+    child { node [concept] {12--13. present, submit code} }
   }
-  child [grow=18, concept color=orange!90!black, text=white] {
-    node [concept] {performance optim.}
-    [clockwise from=135]
-    child { node [concept] {within node} }
-    child { node [concept] {multi node} }
-    child { node [concept] {GPU accel.} }
-    child { node [concept] {tuning} }
+  child [grow=162, concept color=orange!90!black, text=white] {
+    node [concept] {perf. optim.}
+    [counterclockwise from=90]
+    child { node [concept] {1. within node} }
+    child { node [concept] {2. multi node} }
+    child { node [concept] {3. GPU accel.} }
+    child { node [concept] {4. tuning} }
   }
-  child [grow=306, concept color=blue!80!black, text=white] {
-    node [concept] {development}
-    [clockwise from=45]
-    child { node [concept] {test} }
-    child { node [concept] {debug, checkpoint} }
-    child { node [concept] {peer review, reproduce} }
-    child { node [concept] {CI automation} }
-  }
-  child [grow=234, concept color=green!50!black, text=white] {
-    node [concept] {domain science}
+  child [grow=234, concept color=blue!80!black, text=white] {
+    node [concept] {software dev.}
     [counterclockwise from=180]
-    child { node [concept] {scientific param. optim.} }
-    child { node [concept] {coupling AI,~cloud, data sci.} }
+    child { node [concept] {5. test, benchmark, CI} }
+    child { node [concept] {6. debug, checkpoint} }
+    child { node [concept] {7. peer review, package} }
   }
-  child [grow=162, concept color=black!60, text=white] {
+  child [grow=306, concept color=green!50!black, text=white] {
+    node [concept] {domain methods}
+    [counterclockwise from=270]
+    child { node [concept] {8. mech. multiscale models} }
+    child { node [concept] {9. scientific param. fitting.} }
+    child { node [concept] {10. coupling AI,~cloud, data sci.} }
+  }
+  child [grow=18, concept color=black!60, text=white] {
     node [concept] {cluster admin.}
-    [counterclockwise from=120]
-    child { node [concept] {launch} }
-    child { node [concept] {profile} }
+    [clockwise from=18]
+    child { node [concept, name=node-cluster] {11. launch, profile} }
   };
+  \draw [%
+  very thick,
+  {Stealth[harpoon,length=1em]-Circle[length=0.5em]},
+  postaction={
+    decorate,
+    decoration={
+      text align={left},
+      raise={0.3em},
+      text along path,
+      text={End}
+    }
+  },
+  postaction={
+    decorate,
+    decoration={
+      text align={right},
+      raise={0.5em},
+      text along path,
+      text={Start}
+    }
+  }]
+  ([shift=(93:19em)]node-concept) arc (93:-245:19em);
+  \node [yshift = 1.5em] at (node-proposal.north) {};
 \end{tikzpicture}
 
 \section{Course schedule}%
