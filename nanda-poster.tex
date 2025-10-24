@@ -531,20 +531,20 @@ table
     * = optional lecture that may be dropped %
     to review previous, critical lectures.
     \begin{center}
+    \vspace{-\baselineskip}
     \begin{tikzpicture}[
       root concept/.style={
-        text width = 120pt,
+        text width = 100pt,
       },
       level 1 concept/.style={
         text width = 80pt,
-        level distance = 180,
+        level distance = 200,
+        font = \footnotesize,
       },
       level 2 concept/.append style={
-        text width = 80pt,
-        level distance = 120,
-      },
-      every concept/.append style={
-        font = \scriptsize,
+        text width = 85pt,
+        level distance = 140,
+        font = \footnotesize,
       },
       mindmap,
       ]
@@ -569,7 +569,7 @@ table
       child [grow=234, concept color=blue!80!black, text=white] {
         node [concept] {software dev.}
         [counterclockwise from=180]
-        child { node [concept] {6. test, CI, benchmark} }
+        child { node [concept] {6. test, benchmark, CI} }
         child { node [concept] {7. debug, checkpoint} }
         child { node [concept] {8. peer review, package} }
       }
@@ -606,9 +606,10 @@ table
           text={Start}
         }
       }]
-      ([shift=(93:15.6em)]node-concept) arc (93:-245:15.6em);
+      ([shift=(93:18em)]node-concept) arc (93:-245:18em);
     \end{tikzpicture}
     \end{center}
+    \vspace{-2\baselineskip}
     \begin{multicols}{2}
       \begin{enumerate}
       \item \textcolor{red!80!black}{\faWrench{}}
