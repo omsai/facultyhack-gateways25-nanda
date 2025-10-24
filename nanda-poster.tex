@@ -7,14 +7,14 @@ fontsize=24,
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage[
 % - HP DesignJet Z5200 printer in the Chemical Engineering department
-%   has a 44" roll width (1118 mm).
+%   has a 42" roll width (1067 mm).
 % - The FacultyHack @ Science Gateways 2025 conference allows 30"x45"
-% - Therefore, crop the poster to 44in height i.e. 30"x44"
+% - Therefore, crop the poster to 42in height i.e. 30"x42"
 paperwidth=30in,
-paperheight=44in,
+paperheight=42in,
 margin=0.5cm,
-head=2.47in,
-foot=1.59in,
+head=2.17in,
+foot=1.89in,
 includeheadfoot,
 %showframe,
 ]{geometry}
@@ -51,7 +51,7 @@ includeheadfoot,
     \p2 = (nsf-text.north),
     \n1 = {(\y1 - \y2) - 4pt} in
     node at (nsf-text.north) [anchor = south, name = nsf, yshift = -2pt] {%
-      \includegraphics[height=\n1]{nsf.png}};
+      \includegraphics[height=\n1]{NSF_Official_logo_RGB.eps}};
     \node at (fh.east) [%
     anchor = west,
     text = fh-gold,
@@ -154,7 +154,7 @@ url=false,
 % The vancouver citation style is based on NLM per
 % https://tex.stackexchange.com/a/371433
 \addbibresource{references.bib}
-\renewcommand*{\bibfont}{\footnotesize\selectfont}
+\renewcommand*{\bibfont}{\scriptsize\selectfont}
 
 \usepackage[
 table
@@ -241,19 +241,17 @@ table
   appropriate domain science methods, and %
   sustainable software practices %
   to enable large scale, GPU-centric computational research.
-  \smallskip
-
-  \noindent
+  %
   Discussion and feedback on this poster from the community %
   can help make this course a success and %
   support similar hands-on learning and teaching endeavors.
   \smallskip
 
   \noindent
-  \begin{minipage}[c]{.36\linewidth}
+  \begin{minipage}[c]{.3\linewidth}
     \includegraphics[width=\linewidth]{1920x1080-Aurora hero image.jpg}
   \end{minipage}
-  \begin{minipage}[c]{.62\linewidth}
+  \begin{minipage}[c]{.7\linewidth}
     \textbf{Modern supercomputers use GPU architectures.}
     %
     Left photo is the Aurora supercomputer at Argonne National Laboratory %
@@ -440,11 +438,11 @@ table
   \begin{multicols}{2}
     \begin{tikzpicture}
       \node (text) %
-      [text width = .6\linewidth] {%
+      [text width = .7\linewidth] {%
         \textbf{Non-virtual multi-GPU A100 nodes (g3.2xl)}};
       \node (logo) at (text.south east) %
-      [anchor = south west, minimum width = .4\linewidth] {%
-        \includegraphics[width=.4\linewidth]{jetstream2-head-logo.pdf}};
+      [anchor = south west, minimum width = .3\linewidth] {%
+        \includegraphics[width=.3\linewidth]{jetstream2-head-logo.pdf}};
     \end{tikzpicture}
     \vspace{-1.5\baselineskip}
     \begin{itemize}
@@ -459,11 +457,11 @@ table
 
     \begin{tikzpicture}
       \node (text) %
-      [text width = .6\linewidth] {%
+      [text width = .7\linewidth] {%
         \textbf{Bridges-2 GPU HPC allocation}};
       \node (logo) at (text.south east) %
-      [anchor = south west, minimum width = .4\linewidth] {%
-        \includegraphics[width=.4\linewidth]{access-logo.pdf}};
+      [anchor = south west, minimum width = .3\linewidth] {%
+        \includegraphics[width=.3\linewidth]{access-logo.pdf}};
     \end{tikzpicture}
     \vspace{-1.5\baselineskip}
     \begin{itemize}
@@ -479,11 +477,11 @@ table
 
     \begin{tikzpicture}
       \node (text) %
-      [text width = .6\linewidth] {%
+      [text width = .7\linewidth] {%
         \textbf{HPC introduction and reproducible workflows}};
       \node (logo) at (text.south east) %
-      [anchor = south west, minimum width = .4\linewidth] {%
-        \includegraphics[width=.4\linewidth]{hpc-carpentry.pdf}};
+      [anchor = south west, minimum width = .3\linewidth] {%
+        \includegraphics[width=.3\linewidth]{hpc-carpentry.pdf}};
     \end{tikzpicture}
     \vspace{-1.5\baselineskip}
     \begin{itemize}
@@ -496,13 +494,13 @@ table
 
     \begin{tikzpicture}
       \node (text) %
-      [text width = .6\linewidth] {%
+      [text width = .8\linewidth] {%
         \textbf{%
           Trainee GitHub repositories for assignments and capstone projects}};
       \node (logo) at (text.south east) %
-      [anchor = south west, minimum width = .4\linewidth] {%
-        \includegraphics[width=.2\linewidth]{github-mark.pdf}
-        \includegraphics[width=.2\linewidth]{actions-icon-actions.pdf}
+      [anchor = south west, minimum width = .2\linewidth] {%
+        \includegraphics[width=.1\linewidth]{github-mark.pdf}
+        \includegraphics[width=.1\linewidth]{actions-icon-actions.pdf}
       };
     \end{tikzpicture}
     \vspace{-1.5\baselineskip}
@@ -748,12 +746,13 @@ table
     column = 2,
     below = references,
   }{%
+    \vspace{-.1\baselineskip}
   \begin{tikzpicture}
     \node (pn) {%
     \includegraphics[%
     keepaspectratio,
     width=10em,
-    height=5em,
+    height=4.6em,
     clip,
     trim={55 85 50 35}]{%
         pariksheet.png}};
@@ -771,7 +770,7 @@ table
       \includegraphics[%
       keepaspectratio,
       width=10em,
-      height=5em,
+      height=4.6em,
       clip,
       trim={20 80 60 5}]{%
         elijah.jpg}};
