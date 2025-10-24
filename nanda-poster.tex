@@ -1,4 +1,5 @@
 \documentclass{article}
+\usepackage{fontawesome}        % faKeyboard faSuitcase faWrench
 \usepackage{lmodern}            % Smoothly scaling font.
 \usepackage[                    % Set the default font size.
 fontsize=24,
@@ -308,7 +309,7 @@ table
   \item Setup student \ul{JetStream2 VM} for homework and capstone projects.
   \item Add students to my \ul{ACCESS group} for cluster runs and %
     help them get their own ACCESS allocation.
-  \item Teach all C++ classroom exercises inside a \ul{web IDE}. 
+  \item Teach all C++ classroom exercises inside a \ul{web IDE}.
   \item Train students to \ul{package their project}.
   \end{itemize}
   }
@@ -330,18 +331,18 @@ table
 
     \noindent
     \begin{tabularx}{\linewidth}{%
-      >{\hsize=.15\hsize\linewidth=\hsize}X %
-      >{\hsize=.34\hsize\linewidth=\hsize}R %
-      >{\hsize=.16\hsize\linewidth=\hsize}C %
-      >{\hsize=.16\hsize\linewidth=\hsize}C %
-      >{\hsize=.16\hsize\linewidth=\hsize}C}
+      >{\hsize=.18\hsize\linewidth=\hsize}X %
+      >{\hsize=.33\hsize\linewidth=\hsize}R %
+      >{\hsize=.15\hsize\linewidth=\hsize}C %
+      >{\hsize=.15\hsize\linewidth=\hsize}C %
+      >{\hsize=.15\hsize\linewidth=\hsize}C}
       \toprule
       \textbf{Category}
       & \textbf{Topic}
       & \textbf{This Course} & \textbf{ATPESC'24} & \textbf{HPC-IC'25}\\
       \midrule
-      \multirow{4}{\hsize}{Performance optimization
-      \textcolor{orange!90!black}{$\blacksquare$}}
+      \multirow{4}{\hsize}{\textcolor{orange!90!black}{$\blacksquare$}
+      Performance \phantom{$\blacksquare$}~optimization}
       & Within node
       & \checkmark & \checkmark & $\times$\\
       & Multi-node
@@ -351,8 +352,8 @@ table
       & Performance tuning
       & \checkmark & \checkmark & \checkmark\\
       \midrule
-      \multirow{9}{\hsize}{Software development
-      \textcolor{blue!80!black}{$\blacksquare$}}
+      \multirow{6}{\hsize}{\textcolor{blue!80!black}{$\blacksquare$}
+      Software \phantom{$\blacksquare$}~development}
       & Unit testing
       & \checkmark & \checkmark & $\times$\\
       & Performance testing
@@ -366,8 +367,8 @@ table
       & Packaging
       & \checkmark & \checkmark & \checkmark\\
       \midrule
-      \multirow{-0.5}{\hsize}{Domain science methods
-      \textcolor{green!50!black}{$\blacksquare$}}
+      \multirow{-0.5}{\hsize}{\textcolor{green!50!black}{$\blacksquare$}
+      Domain science \phantom{$\blacksquare$}~methods}
       & Mechanistic multiscale modeling
       & \checkmark & $\times$ & $\times$\\
       & Scientific parameter fitting
@@ -375,8 +376,8 @@ table
       & Coupling AI, cloud, data science
       & \checkmark & $\times$ & \checkmark\\
       \midrule
-      \multirow{2}{\hsize}{Sysadmin
-      \textcolor{black!60}{$\blacksquare$}}
+      \multirow{2}{\hsize}{\textcolor{black!60}{$\blacksquare$}
+      Sysadmin}
       & Cluster launch
       & \checkmark & $\times$ & \checkmark\\
       & Cluster profiling
@@ -520,122 +521,166 @@ table
     name = syl-modified,
     column = 2,
   }{%
-    The topics covered in this course %
-    are organized into the categories of the %
-    \textcolor{red!80!black}{$\blacksquare$}~capstone project,
-    \textcolor{orange!90!black}{$\blacksquare$}~performance optimization, %
-    \textcolor{blue!80!black}{$\blacksquare$}~software development, %
-    \textcolor{green!50!black}{$\blacksquare$}~domain science methods, and %
-    \textcolor{black!60}{$\blacksquare$}~cluster administration.
-    % 
-    Each item more-or-less corresponds to %
-    a single week of semester classroom sessions.
+    Each node corresponds to about %
+    one week of semester classroom sessions.
     %
-    To accommodate delays from needing to spend extra time clarifying
-    critical topics taught earlier in the class, two class weeks can be
-    dropped and have been marked with ``(Time permitting)''.
+    Key: %
+    \faSuitcase{} = standalone homework, %
+    \faWrench{} = capstone homework, %
+    \faKeyboardO{} = classroom hands-on exercise, %
+    * = optional lecture that may be dropped %
+    to review previous, critical lectures.
+    \begin{center}
+    \begin{tikzpicture}[
+      root concept/.style={
+        text width = 120pt,
+      },
+      level 1 concept/.style={
+        text width = 80pt,
+        level distance = 180,
+      },
+      level 2 concept/.append style={
+        text width = 80pt,
+        level distance = 120,
+      },
+      every concept/.append style={
+        font = \scriptsize,
+      },
+      mindmap,
+      ]
+      \path
+      node [concept, concept color=black, text=white, name=node-concept]
+      {course topics}
+      child [grow=90, concept color=red!80!black, text=white] {
+        node [concept] {capstone}
+        [clockwise from=150]
+        child { node [concept] {1. write abstract} }
+        child { node [concept, name=node-proposal] {14. write proposal} }
+        child { node [concept] {13. present, submit code} }
+      }
+      child [grow=162, concept color=orange!90!black, text=white] {
+        node [concept] {perf. optim.}
+        [counterclockwise from=90]
+        child { node [concept] {2. within node} }
+        child { node [concept] {3. multi node} }
+        child { node [concept] {4. GPU accel.} }
+        child { node [concept] {5. tuning} }
+      }
+      child [grow=234, concept color=blue!80!black, text=white] {
+        node [concept] {software dev.}
+        [counterclockwise from=180]
+        child { node [concept] {6. test, CI, benchmark} }
+        child { node [concept] {7. debug, checkpoint} }
+        child { node [concept] {8. peer review, package} }
+      }
+      child [grow=306, concept color=green!50!black, text=white] {
+        node [concept] {domain methods}
+        [counterclockwise from=270]
+        child { node [concept] {9. mech. multiscale models} }
+        child { node [concept] {10. scientific param. fitting.} }
+        child { node [concept] {*11. coupling AI,~cloud, data sci.} }
+      }
+      child [grow=18, concept color=black!60, text=white] {
+        node [concept] {cluster admin.}
+        [clockwise from=18]
+        child { node [concept, name=node-cluster] {*12. launch, profile} }
+      };
+      \draw [%
+      very thick,
+      {Stealth[harpoon,length=1em]-Circle[length=0.5em]},
+      postaction={
+        decorate,
+        decoration={
+          text align={left},
+          raise={0.3em},
+          text along path,
+          text={End}
+        }
+      },
+      postaction={
+        decorate,
+        decoration={
+          text align={right},
+          raise={0.5em},
+          text along path,
+          text={Start}
+        }
+      }]
+      ([shift=(93:15.6em)]node-concept) arc (93:-245:15.6em);
+    \end{tikzpicture}
+    \end{center}
     \begin{multicols}{2}
-      \begin{itemize}
-      \item[\textcolor{red!80!black}{$\blacksquare$}] \textbf{Write
-          abstract:} begin a capstone project after completing the
-        performance optimization topics\\
-        \textbf{Assignment 0:} Write a half page proposal for a new or
+      \begin{enumerate}
+      \item \textcolor{red!80!black}{\faWrench{}}
+        Write a half page proposal for a new or
         existing compute-intensive mechanistic model to be accelerated
         using GPU resources.%
-      \item[\textcolor{orange!90!black}{$\blacksquare$}]
-        \textbf{Within-node optimization:} strategies for within-node
-        vectorization, caching, memory bandwidth, and I/O\\
-        \textbf{Assignment 1:} Exercises vectorizing Python code,
-        inspecting C assembler CPU vectorized instructions, creating
-        roofline plots to inspect CPU-memory, hwloc to inspect memory
-        CPU hierarchy.%
-      \item[\textcolor{orange!90!black}{$\blacksquare$}]
-        \textbf{Multi-node scaling:} strategies for task distribution
-        and multi-node cluster scaling\\
-        \textbf{Assignment 2:} Exercises with C, TaskWorks, Spack,
-        MPI, and SLURM.%
-      \item[\textcolor{orange!90!black}{$\blacksquare$}] \textbf{GPU
-          acceleration:} introduction to data parallel programming for
-        GPUs\\
-        \textbf{Assignment 3:} Exercises with C++ Kokkos to fill in
+      \item \textcolor{orange!90!black}{\faSuitcase{}}
+        Vectorize Python code,
+        inspect C assembler CPU vectorized instructions, create
+        roofline plots to inspect CPU-memory, inspect memory
+        hierarchy.%
+      \item \textcolor{orange!90!black}{\faSuitcase{}}
+        TaskWorks, Spack, MPI, and SLURM.%
+      \item \textcolor{orange!90!black}{\faSuitcase{}}
+        C++ Kokkos to fill in
         the blanks of partially completed programs.\\
-        \textbf{Assignment 3-capstone:} Outline an informal list of
-        goals and objectives to create a minimum viable product of
-        your capstone code through the remainder of the semester.%
-      \item[\textcolor{orange!90!black}{$\blacksquare$}] \textbf{
-          Distributed performance tuning:} Introduction to distributed
-        performance tuning\\
-        \textbf{Assignment 4:} Exercises with Darashan, Drishti, and
-        HPCtoolkit\\
-        \textbf{Assignment 4-capstone:} Literature review of software
+        \textcolor{orange!90!black}{\faWrench{}}
+        Outline capstone project goals and objectives
+        with rough semester timeline.%
+      \item \textcolor{orange!90!black}{\faSuitcase{}}
+        Darashan, Drishti, and
+        HPCtoolkit.\\
+        \textcolor{orange!90!black}{\faWrench{}}
+        Literature review of software
         similar to yours and how you intend to make yours different.%
-      \item[\textcolor{blue!80!black}{$\blacksquare$}] \textbf{
-          Testing, CI, and benchmarking}: automated unit testing,
-        performance regression testing, test coverage, and continuous
-        integration\\
-        \textbf{Hands-On 5}: Exercises with pytest, Benchpark, and
-        GitLab CI.\@\\
-        \textbf{Assignment 5-capstone:} Start adding tests, coverage,
-        and CI to your capstone project.%
-      \item[\textcolor{blue!80!black}{$\blacksquare$}] \textbf{ Peer
-          review, usability, packaging:} practicing stress-free code
-        peer review, documentation, and packaging\\
-        \textbf{Hands-On 7:} Exercise with professor and pairing.\\
-        \textbf{Assignment 7-capstone:} Document, package with Spack
-        or Apptainer.%
-      \item[\textcolor{blue!80!black}{$\blacksquare$}] \textbf{
-          Parallel debugging and checkpointing:} introduction to
-        parallel
-        debugging, code correctness, and application checkpoints\\
-        \textbf{Hands-On 6:} MPIGDB debugging session, resuming from
+      \item \textcolor{blue!80!black}{\faKeyboardO{}}
+        PyTest, Benchpark, and
+        Jacamar CI.\@\\
+        \textcolor{blue!80!black}{\faWrench{}}
+        Start adding tests, coverage, benchmarks,
+        and continuous integration.%
+      \item \textcolor{blue!80!black}{\faKeyboardO{}}
+        Peer pairing.\\
+        \textcolor{blue!80!black}{\faWrench{}}
+        Document, package with Spack or Apptainer.%
+      \item \textcolor{blue!80!black}{\faKeyboardO{}}
+        MPIGDB debugging session, resuming from
         checkpoint
         to understand error, correctness with sanitizers.\@\\
-        \textbf{Assignment 6-capstone:} Start adding checkpointing to
-        your capstone project.%
-      \item[\textcolor{green!50!black}{$\blacksquare$}] \textbf{
-          Mechanistic, multiscale modeling:} simulations using an
-        agent-based, mechanistic, multiscale model\\
-        \textbf{Hands-On 8:} Analyze how model layers and linking are
+        \textcolor{blue!80!black}{\faWrench{}}
+        Start adding checkpointing.%
+      \item \textcolor{green!50!black}{\faKeyboardO{}}
+        Analyze how model layers and linking are
         implemented\supercite{cilfone_2015}.%
-      \item[\textcolor{green!50!black}{$\blacksquare$}] \textbf{
-          Parallel parameter fitting:} parallel parameter fitting
-        using gradient-free, pseudo-likelihood based sampling\\
-        \textbf{Hands-On 9:} Calibrating our model from last time with
+      \item \textcolor{green!50!black}{\faKeyboardO{}}
+        Calibrating our model from last time with
         pyabc using adaptive sampling; discuss
         checkpointing, debugging.\\
-        \textbf{Assignment 9-capstone:} Start coupling with scientific
-        parameter sampling.%
-      \item[\textcolor{green!50!black}{$\blacksquare$}] (Time
-        permitting) \textbf{Coupling AI, cloud, data science:}
-        Coupling HPC
-        paradigms with data science, AI, and cloud environments\\
-        Assignment 10: Summarize book\supercite{zbakh_2024} chapters 4
+        \textcolor{green!50!black}{\faWrench{}}
+        Start coupling with scientific parameter sampling.%
+      \item \textcolor{green!50!black}{\faSuitcase{}}
+        Summarize book\supercite{zbakh_2024} chapters 4
         and 8 in 1 page.\\
-        \textbf{Assignment 10-capstone:} Assess possible extensions to
-        your capstone project using components of AI, big data, or
-        cloud applications and specialized hardware needs by
-        connecting the concepts from each of the two articles, your
+        \textcolor{green!50!black}{\faWrench{}}
+        Assess possible extensions using components of AI, big data, or
+        cloud applications and specialized hardware needs with your
         domain science, and to what extent we discussed these concepts
         so far in the class.%
-      \item[\textcolor{black!60}{$\blacksquare$}] (Time permitting)
-        \textbf{Cluster sysadmin and profiling:} cluster launch,
-        system
-        administration, and profiling\\
-        \textbf{Hands-On 11:} Setup VMs with network, shared disk, and
-        SLURM to launch and profile an ad-hoc, suboptimal cluster.%
-      \item[\textcolor{red!80!black}{$\blacksquare$}] \textbf{Final
-          presentations and code:} final presentations of capstone
-        projects\\
-        \textbf{Hands-On 12-capstone:} Walk though your project with
+      \item \textcolor{black!60}{\faKeyboardO{}}
+        Setup VMs with network, shared disk, and
+        SLURM to launch and profile an ad-hoc, suboptimal cluster
+        to compare with a professionally architected and tuned cluster.%
+      \item \textcolor{red!80!black}{\faKeyboardO{}}
+        Walk though your project with
         ACCESS-relevant details and future directions.\\
-        \textbf{Assignment 12-capstone:} Submit code for grading.%
-      \item[\textcolor{red!80!black}{$\blacksquare$}] \textbf{NSF
-          ACCESS proposal:} NSF ACCESS allocation request\\
-        \textbf{Assignment 13-capstone:} Write a 3-page ACCESS CI
+        \textcolor{red!80!black}{\faWrench{}} Submit code for grading.%
+      \item \textcolor{red!80!black}{\faWrench{}}
+        Write a 3-page ACCESS CI
         Accelerate proposal with scaling studies and justification for
-        compute resources requested; trim actual Discover proposal to
+        compute resources; trim actual Discover proposal to
         1-page.%
-      \end{itemize}
+      \end{enumerate}
     \end{multicols}
   }
 
