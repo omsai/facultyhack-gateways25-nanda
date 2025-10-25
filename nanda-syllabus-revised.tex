@@ -35,6 +35,7 @@ heightrounded, % to avoid spurious underfull messages
 \graphicspath{{img/}}
 \usepackage{sectsty}            % sectionfont
 \sectionfont{\fontsize{12}{15}\selectfont}
+\subsectionfont{\fontsize{12}{15}\selectfont}
 \usepackage{soul}
 \usepackage[
 abbreviate=true,
@@ -84,6 +85,7 @@ citestyle=numeric-comp
   mindmap,
 }
 \usepackage[perpage]{footmisc}  % tlmgr install bigfoot
+\usepackage{amssymb}            % \blacksquare
 
 \begin{document}
 
@@ -345,7 +347,7 @@ cluster administration:
     child { node [concept] {4. tuning} }
   }
   child [grow=234, concept color=blue!80!black, text=white] {
-    node [concept] {software dev.}
+    node [concept] {HPC software dev.}
     [counterclockwise from=180]
     child { node [concept] {5. test, benchmark, CI} }
     child { node [concept] {6. debug, checkpoint} }
@@ -395,14 +397,12 @@ cluster administration:
 Classes are on Wednesdays at 13:00--14:50.
 %
 Broadly speaking, the schedule is divided into two halves:
-\begin{enumerate}
-\item Intensive instruction of critical skills %
-  to support you working on your capstone project, and
-\item Advanced topics that may or may not support your capstone project, %
-  but that hopefully expand your capabilities.
-  %
-  You will also present regular progress reports on your capstone project.
-\end{enumerate}
+an intensive instruction of critical skills %
+to support you working on your capstone project, and
+domain science topics that may or may not support your capstone project, %
+but that hopefully expand your capabilities.
+%
+You will be regularly assessed on your capstone project.
 
 \newcommand{\myheader}{%
   Date & Topic, assignment, goal & Assignment(s) due on this date}
@@ -841,20 +841,199 @@ as early as possible in the term.
 DRS will verify your disability %
 and determine reasonable accommodations for this course.
 
-\label{mylastpage}              % chktex 24
-\newpage
 \appendix
-\setcounter{page}{1}
-\renewcommand{\thepage}{\arabic{page}}
-\fancyhead[c]{References}
-\fancyhead[r]{Appendix Page \thepage{} of~\pageref*{mylastappendixpage}}
 
 \section{Projects for advanced undergraduates}
 \label{sec:projects}
 
+On completing your semester project, %
+you are encouraged to present your work as a poster %
+at the conferences similar to those listed below, %
+depending on the type of project.
+%
+The instructor will provide a letter of support %
+to try and help you attend for free with a student scholarship.
 
+\subsection{Kokkos backend for macOS Metal}
+\begin{description}
+\item[Categories:]
+  \textcolor{orange!90!black}{$\blacksquare$} Performance optimization,
+  \textcolor{blue!80!black}{$\blacksquare$} HPC software development
+\item[Description:] Apple devices devices running macOS 13 or later %
+  with Apple Silicon chips %
+  are attractive targets for performance portability backends.
+  %
+  Similar to NVIDIA CUDA, AMD HIP, etc., %
+  Apple uses the Metal accelerator framework.
+  %
+  Using these existing backends as a reference, %
+  you would support using the Metal library.
+  %
+  If you do not have a suitable Apple device, %
+  educational discounts would allow purchasing %
+  an entry-level Mac Mini for about \$400 %
+  to support you work on this project.
+  %
+  There is some potential for Apple system engineers %
+  and Kokkos developers to help support your effort.
+\item[Impact:] Apple Silicon laptops are broadly used by the HPC community %
+  and thus simplify developing and testing code locally,
+  as well as make HPC technologies %
+  accessible to a broader scientific computing audience.
+  %
+  This effort would also aid writing consumer hardware backends %
+  for laptop processors that include AI-focused NPUs %
+  from Intel, AMD, and Qualcomm.
+\item[Conferences:] WWDC, HPSF, SuperComputing, USRSE
+\end{description}
+
+\subsection{Spack package dynamic dependency generator for R, python, or Rust}
+\begin{description}
+\item[Categories:]
+  \textcolor{blue!80!black}{$\blacksquare$} HPC software development
+\item[Description:] It is tedious to hand wrap %
+  ``pure'' python (or R or Rust packages), %
+  namely, those that purely have dependencies only on other %
+  python (or R or Rust) packages.
+  %
+  Your project would be to continue efforts %
+  working on the Spack Python code base %
+  to dynamically generate these packages %
+  from metadata of the package repository such as pypi (or CRAN or cargo).
+\item[Impact:] Spack has thousands of contributors around the world; %
+  this would save a lot of time %
+  as well as help seamlessly bridge HPC environments %
+  with pure packaging environments.
+\item[Conferences:] HPSF, SuperComputing, USRSE
+\end{description}
+
+\subsection{Enhance pyABC with checkpointing and/or design the MPIABC mini-app}
+\begin{description}
+\item[Categories:]
+  \textcolor{green!50!black}{$\blacksquare$} Domain science methods
+  \textcolor{blue!80!black}{$\blacksquare$} HPC software development
+\item[Description:] Parallel methods for gradient-free parameter fitting %
+  using ABC-SMC are increasingly used, %
+  but lack the robustness of checkpointing and MPI communication.
+  %
+  Rather than rewrite the python pyABC package, %
+  consider how you can reliably checkpoint pyABC %
+  and develop an MPI4py parallel backend.
+  %
+  Additionally, %
+  consider starting first creating reference implementation %
+  using MPI and checkpointing with the ABC-SMC sampling.
+\item[Impact:] Checkpointing would allow troubleshooting %
+  sampler-related errors %
+  and allow longer calibrations %
+  of complex mechanistic models %
+  that each take several hours to compute.
+\item[Conferences:] SIAM Uncertainty Quantification, SuperComputing
+\end{description}
+
+\subsection{Open source contributions to performance portability}
+\begin{description}
+\item[Categories:]
+  \textcolor{orange!90!black}{$\blacksquare$} Performance optimization,
+  \textcolor{blue!80!black}{$\blacksquare$} HPC software development
+\item[Description:] You will work with the instructor %
+  to identify a list of open issues on the Kokkos issue tracker %
+  to attempt to fix.
+  %
+  You would coordinate and proxy commits, %
+  coordinating with the instructor.
+\item[Conferences:] HPSF, USRSE
+\end{description}
+
+\subsection{Create and maintain GPU-related packages on a GNU/Linux OS}
+\begin{description}
+\item[Categories:]
+  \textcolor{black!60}{$\blacksquare$} System administration
+  \textcolor{orange!90!black}{$\blacksquare$} Performance optimization,
+  \textcolor{blue!80!black}{$\blacksquare$} HPC software development
+\item[Description:] GPU packages can have complex dependencies %
+  on vendor GPU Linux kernel drivers, SDKs, runtimes, and compilation flags.
+  %
+  In particular, %
+  Linux kernel packages %
+  are better handled by the operating system package manager.
+  %
+  The Gentoo Linux operating system %
+  is attractive for this project %
+  because of its explicit kernel configuration %
+  and similarities with the Spack package manager.
+\item[Impact:] Improving GPU package support helps HPC software %
+  as well as home users.
+  %
+  GNU/Linux package managers %
+  have more rigorous processes to control quality %
+  and high quality documentation.
+\item[Conferences:] FOSDEM, Gentoo e.V., USRSE, HPSF, SuperComputing
+\end{description}
+
+\subsection{Kokkos wrapping of R Bioconductor GPU package}
+\begin{description}
+\item[Categories:]
+  \textcolor{orange!90!black}{$\blacksquare$} Performance optimization,
+  \textcolor{green!50!black}{$\blacksquare$} Domain science methods
+  \textcolor{blue!80!black}{$\blacksquare$} HPC software development
+\item[Description:] Recently, %
+  the R Bioconductor project has begun allowing NVIDIA accelerated %
+  GPU packages.
+  %
+  You would use Kokkos to support running on NVIDIA platforms %
+  and port the Rgtsvm package to use Kokkos %
+  and submit to Bioconductor if possible.
+\item[Impact:] Rgtsvm allows running fast support-vector regression %
+  primarily for biological applications.
+\item[Conferences:] Bioconductor, HPSF
+\end{description}
+
+\subsection{GPU acceleration of R Bioconductor package}
+\begin{description}
+\item[Categories:]
+  \textcolor{orange!90!black}{$\blacksquare$} Performance optimization,
+  \textcolor{green!50!black}{$\blacksquare$} Domain science methods
+  \textcolor{blue!80!black}{$\blacksquare$} HPC software development
+\item[Description:] Recently, %
+  the R Bioconductor project has begun allowing NVIDIA accelerated %
+  GPU packages.
+  %
+  Use a gradient-based parallel sampler %
+  to accelerate the serial maximum likelihood sampler %
+  of the TSSHMM package.
+  %
+  To simplify this effort, %
+  use the Kokkos OpenMP backend %
+  and submit to Bioconductor if possible.
+\item[Impact:] Parameter fitting is the rate limiting step %
+  of nascent RNA inference %
+  in genomic sequencing applications.
+\item[Conferences:] Bioconductor, HPSF
+\end{description}
+
+\subsection{Migrate datascience and cloud workflows to HPC}
+\begin{description}
+\item[Categories:]
+  \textcolor{black!60}{$\blacksquare$} System administration
+  \textcolor{green!50!black}{$\blacksquare$} Domain science methods
+  \textcolor{blue!80!black}{$\blacksquare$} HPC software development
+\item[Description:] Several scientific software applications %
+  are not straight forward to run on HPC systems.
+  %
+  You would explore using tools like %
+  CharlieCloud, %
+  Apptainer, %
+  Galaxy, %
+  Snakemake, etc. %
+  to robustly and efficiently run domain science applications.
+\item[Impact:] Contribute to %
+  resilient, reproducible, and computationally-efficient %
+  scientific applications.
+\item[Conferences] USRSE, SuperComputing, HPSF
+\end{description}
 
 \printbibliography[heading=none]{}%
-\label{mylastappendixpage}
+\label{mylastpage}
 
 \end{document}
